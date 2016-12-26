@@ -24,8 +24,9 @@
     "blockchain",
     "wallet"
   ],
-  "author": "Fedor Indutny <fedor@indutny.com>",
+  "author": "Manuel Araoz <manuelaraoz@gmail.com>",
   "contributors": [
+    "Fedor Indutny <fedor@indutny.com> (https://github.com/indutny)",
     "Christopher Jeffrey <chjjeffrey@gmail.com> (https://github.com/chjj)"
   ],
   "license": "MIT",

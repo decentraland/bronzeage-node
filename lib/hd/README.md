@@ -11,6 +11,7 @@ BIP32
 
 ```
 Copyright (c) 2015-2016, Christopher Jeffrey (MIT License).
+ * Copyright (c) 2016-2017, Manuel Araoz (MIT License).
 https://github.com/decentraland/decentraland-node
 
 Copyright (c) 2013-2015 BitPay, Inc.
