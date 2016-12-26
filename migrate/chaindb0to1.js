@@ -1,5 +1,5 @@
-var bcoin = require('../');
-var co = bcoin.co;
+var decentraland = require('../');
+var co = decentraland.co;
 var assert = require('assert');
 var file = process.argv[2];
 var BufferWriter = require('../lib/utils/writer');
@@ -8,7 +8,7 @@ assert(typeof file === 'string', 'Please pass in a database path.');
 
 file = file.replace(/\.ldb\/?$/, '');
 
-var db = bcoin.ldb({
+var db = decentraland.ldb({
   location: file,
   db: 'leveldb',
   compression: true,

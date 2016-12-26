@@ -2,12 +2,12 @@
 
 'use strict';
 
-process.title = 'bcoin';
+process.title = 'decentraland-node';
 
-var bcoin = require('../');
+var decentraland = require('../');
 var assert = require('assert');
 
-var options = bcoin.config({
+var options = decentraland.config({
   config: true,
   arg: true,
   env: true,
@@ -17,9 +17,9 @@ var options = bcoin.config({
   listen: true
 });
 
-bcoin.set(options);
+decentraland.set(options);
 
-var node = new bcoin.fullnode(options);
+var node = new decentraland.fullnode(options);
 
 node.on('error', function(err) {
   ;
@@ -33,5 +33,5 @@ process.on('uncaughtException', function(err) {
 
 node.open().then(function() {
   node.pool.connect();
-  node.startSync();
+  //node.startSync();
 });

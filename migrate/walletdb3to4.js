@@ -1,5 +1,5 @@
 var assert = require('assert');
-var bcoin = require('../');
+var decentraland = require('../');
 var constants = require('../lib/protocol/constants');
 var WalletDB = require('../lib/wallet/walletdb');
 var TXDB = require('../lib/wallet/txdb');
@@ -8,7 +8,7 @@ var BufferReader = require('../lib/utils/reader');
 var TX = require('../lib/primitives/tx');
 var Coin = require('../lib/primitives/coin');
 var util = require('../lib/utils/util');
-var co = bcoin.co;
+var co = decentraland.co;
 var layout = WalletDB.layout;
 var tlayout = TXDB.layout;
 var file = process.argv[2];
@@ -18,7 +18,7 @@ assert(typeof file === 'string', 'Please pass in a database path.');
 
 file = file.replace(/\.ldb\/?$/, '');
 
-db = bcoin.ldb({
+db = decentraland.ldb({
   location: file,
   db: 'leveldb',
   compression: true,

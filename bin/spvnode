@@ -2,13 +2,13 @@
 
 'use strict';
 
-process.title = 'bcoin';
+process.title = 'decentraland-node-spv';
 
-var bcoin = require('../');
-var util = bcoin.util;
+var decentraland = require('../');
+var util = decentraland.util;
 var assert = require('assert');
 
-var options = bcoin.config({
+var options = decentraland.config({
   config: true,
   arg: true,
   env: true,
@@ -17,9 +17,9 @@ var options = bcoin.config({
   db: 'leveldb'
 });
 
-bcoin.set(options);
+decentraland.set(options);
 
-var node = bcoin.spvnode(options);
+var node = decentraland.spvnode(options);
 
 node.on('error', function(err) {
   ;
@@ -34,7 +34,7 @@ process.on('uncaughtException', function(err) {
 node.open().then(function() {
   if (process.argv.indexOf('--test') !== -1) {
     node.pool.watchAddress('1VayNert3x1KzbpzMGt2qdqrAThiRovi8');
-    node.pool.watch(bcoin.outpoint().toRaw());
+    node.pool.watch(decentraland.outpoint().toRaw());
     node.on('block', function(block) {
       assert(block.txs.length >= 1);
       if (block.txs.length > 1)

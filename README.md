@@ -1,12 +1,12 @@
-# BCoin
+# Decentraland Node
 
-**BCoin** is a bitcoin library which can also act as an SPV node or a full
+**Decentraland Node** is a bitcoin library which can also act as an SPV node or a full
 node. It is consensus aware and is up to date with the latest BIPs: it supports
 segregated witness, versionbits, CSV, and compact block relay. It also has
 preliminary support for bip151 (peer-to-peer encryption), bip150 (peer auth),
 and bip114 (MAST). It runs in node.js, but it can also be browserified.
 
-Try it in the browser: http://bcoin.io/browser.html
+Try it in the browser: https://decentraland.org
 
 ## Features
 
@@ -24,19 +24,15 @@ Try it in the browser: http://bcoin.io/browser.html
 ## Install
 
 ```
-$ git clone git://github.com/bcoin-org/bcoin.git
-$ cd bcoin
+$ git clone git://github.com/decentraland/decentraland-node.git
+$ cd decentraland-node
 $ npm install
-$ bcoin --fast
+$ ./bin/decentraland-node --fast
 ```
 
-Note that the latest BCoin has not been published to NPM yet, as it is still
+Note that the latest Decentraland Node has not been published to NPM yet, as it is still
 under fairly heavy development (which may involve changing serialization
 formats for the database).
-
-## Documentation
-
-Read the docs here: http://bcoin.io/docs/
 
 ## Example Usage
 
@@ -51,53 +47,53 @@ Read the docs here: http://bcoin.io/docs/
 ### CLI Usage
 
 ``` bash
-$ export BCOIN_API_KEY=your-api-key
+$ export DECENTRALAND_API_KEY=your-api-key
 
 # View the genesis block
-$ bcoin cli block 0
+$ decentraland-node cli block 0
 
 # View the mempool
-$ bcoin cli mempool
+$ decentraland-node cli mempool
 
 # View primary wallet
-$ bcoin cli wallet get
+$ decentraland-node cli wallet get
 
 # View transaction history
-$ bcoin cli wallet history
+$ decentraland-node cli wallet history
 
 # Send a transaction
-$ bcoin cli wallet send [address] 0.01
+$ decentraland-node cli wallet send [address] 0.01
 
 # View balance
-$ bcoin cli wallet balance
+$ decentraland-node cli wallet balance
 
 # Derive new address
-$ bcoin cli wallet address
+$ decentraland-node cli wallet address
 
 # Create a new account
-$ bcoin cli wallet account create foo
+$ decentraland-node cli wallet account create foo
 
 # Send from account
-$ bcoin cli wallet send [address] 0.01 --account=foo
+$ decentraland-node cli wallet send [address] 0.01 --account=foo
 ```
 
 #### RPC (bitcoind-like)
 
 ``` bash
-$ bcoin rpc getblockchaininfo
-$ bcoin rpc getwalletinfo
-$ bcoin rpc getpeerinfo
-$ bcoin rpc getbalance
-$ bcoin rpc listtransactions
-$ bcoin rpc sendtoaddress [address] 0.01
+$ decentraland-node rpc getblockchaininfo
+$ decentraland-node rpc getwalletinfo
+$ decentraland-node rpc getpeerinfo
+$ decentraland-node rpc getbalance
+$ decentraland-node rpc listtransactions
+$ decentraland-node rpc sendtoaddress [address] 0.01
 ```
 
 ### Creating a blockchain and mempool
 
 ``` js
-var bcoin = require('bcoin');
+var decentraland = require('decentraland-node');
 
-bcoin.set({
+decentraland.set({
   // Default network (so we can avoid passing
   // the `network` option into every object below.
   network: 'regtest',
@@ -108,9 +104,9 @@ bcoin.set({
 
 // Start up a blockchain, mempool, and miner using in-memory
 // databases (stored in a red-black tree instead of on-disk).
-var chain = new bcoin.chain({ db: 'memory' });
-var mempool = new bcoin.mempool({ chain: chain });
-var miner = new bcoin.miner({ chain: chain, mempool: mempool });
+var chain = new decentraland.chain({ db: 'memory' });
+var mempool = new decentraland.mempool({ chain: chain });
+var miner = new decentraland.miner({ chain: chain, mempool: mempool });
 
 // Open the miner (initialize the databases, etc).
 // Miner will implicitly call `open` on chain and mempool.
@@ -133,17 +129,17 @@ miner.open().then(function() {
 ### Connecting to the P2P network
 
 ``` js
-var bcoin = require('bcoin').set('main');
+var decentraland = require('decentraland-node').set('main');
 
 // Create a blockchain and store it in leveldb.
 // `db` also accepts `rocksdb` and `lmdb`.
-var prefix = process.env.HOME + '/my-bcoin-environment';
-var chain = new bcoin.chain({ db: 'leveldb', location: prefix + '/chain' });
+var prefix = process.env.HOME + '/my-decentraland-environment';
+var chain = new decentraland.chain({ db: 'leveldb', location: prefix + '/chain' });
 
-var mempool = new bcoin.mempool({ chain: chain });
+var mempool = new decentraland.mempool({ chain: chain });
 
 // Create a network pool of peers with a limit of 8 peers.
-var pool = new bcoin.pool({ chain: chain, mempool: mempool, maxPeers: 8 });
+var pool = new decentraland.pool({ chain: chain, mempool: mempool, maxPeers: 8 });
 
 // Open the pool (implicitly opens mempool and chain).
 pool.open().then(function() {
@@ -173,17 +169,17 @@ pool.open().then(function() {
 // Start up a segnet4 sync in-memory
 // while we're at it (because we can).
 
-var tchain = new bcoin.chain({
+var tchain = new decentraland.chain({
   network: 'segnet4',
   db: 'memory'
 });
 
-var tmempool = new bcoin.mempool({
+var tmempool = new decentraland.mempool({
   network: 'segnet4',
   chain: tchain
 });
 
-var tpool = new bcoin.pool({
+var tpool = new decentraland.pool({
   network: 'segnet4',
   chain: tchain,
   mempool: tmempool,
@@ -218,22 +214,22 @@ tpool.open().then(function() {
 ### Doing an SPV sync
 
 ``` js
-var bcoin = require('bcoin').set('testnet');
+var decentraland = require('decentraland-node').set('testnet');
 
 // SPV chains only store the chain headers.
-var chain = new bcoin.chain({
+var chain = new decentraland.chain({
   db: 'leveldb',
   location: process.env.HOME + '/spvchain',
   spv: true
 });
 
-var pool = new bcoin.pool({
+var pool = new decentraland.pool({
   chain: chain,
   spv: true,
   maxPeers: 8
 });
 
-var walletdb = new bcoin.walletdb({ db: 'memory' });
+var walletdb = new decentraland.walletdb({ db: 'memory' });
 
 pool.open().then(function() {
   return walletdb.open();
@@ -257,7 +253,7 @@ pool.open().then(function() {
 
   wallet.on('balance', function(balance) {
     console.log('Balance updated.');
-    console.log(bcoin.amount.btc(balance.unconfirmed));
+    console.log(decentraland.amount.btc(balance.unconfirmed));
   });
 });
 ```
@@ -265,9 +261,9 @@ pool.open().then(function() {
 ### High-level usage with the Node object
 
 ``` js
-var bcoin = require('bcoin').set('main');
+var decentraland = require('decentraland-node').set('main');
 
-var node = bcoin.fullnode({
+var node = decentraland.fullnode({
   prune: false,
   useCheckpoints: true,
   debug: true,
@@ -340,19 +336,19 @@ node.chain.on('full', function() {
 ### Running the default full node
 
 ``` bash
-$ bcoin --fast
+$ decentraland-node --fast
 ```
 
 `--fast` will enable checkpoints, coin cache, and getheaders.
 
-Your config file should reside in `~/.bcoin/bcoin.conf`. See `etc/sample.conf`
+Your config file should reside in `~/.decentraland/decentraland.conf`. See `etc/sample.conf`
 for an example.
 
 ### Running a full node in the browser
 
 ``` bash
-$ cd ~/bcoin
-$ make # Browserify bcoin
+$ cd ~/decentraland-node
+$ make # Browserify decentraland-node
 $ node browser/server.js 8080 # Start up a simple webserver and websocket->tcp bridge
 $ chromium http://localhost:8080
 ```
@@ -365,20 +361,20 @@ the chrome extension API exposes raw TCP access.
 
 ## TX creation
 
-Normal transactions in bcoin are immutable. The primary TX object contains a
+Normal transactions in decentraland-node are immutable. The primary TX object contains a
 bunch of consensus and policy checking methods. A lot of it is for internal use
 and pretty boring for users of this library.
 
-BCoin also offers a mutable transaction object (MTX). Mutable transactions
+Decentraland Node also offers a mutable transaction object (MTX). Mutable transactions
 inherit from the TX object, but can also be signed and modified.
 
 ``` js
-var bcoin = require('bcoin');
+var decentraland = require('decentraland-node');
 var assert = require('assert');
-var constants = bcoin.constants;
+var constants = decentraland.constants;
 
 // Create an HD master keypair with a mnemonic.
-var master = bcoin.hd.fromMnemonic();
+var master = decentraland.hd.fromMnemonic();
 
 // Derive another private hd key (we don't want to use our master key!).
 var key = master.derive('m/44/0/0/0/0');
@@ -388,17 +384,17 @@ var key = master.derive('m/44/0/0/0/0');
 // your program hash, your pubkey hash, your scripthash program hash, etc.
 // In this case, we'll make it simple and just add one key for a
 // pubkeyhash address. `getPublicKey` returns the non-hd public key.
-var keyring = new bcoin.keyring(key.privateKey);
+var keyring = new decentraland.keyring(key.privateKey);
 
 console.log(keyring.getAddress());
 
 // Create a fake coinbase for our funding.
-var cb = new bcoin.mtx();
+var cb = new decentraland.mtx();
 
 // Add a typical coinbase input
 cb.addInput({
-  prevout: new bcoin.outpoint(),
-  script: new bcoin.script(),
+  prevout: new decentraland.outpoint(),
+  script: new decentraland.script(),
   sequence: 0xffffffff
 });
 
@@ -409,7 +405,7 @@ cb.addOutput({
 });
 
 // Create our redeeming transaction.
-var mtx = new bcoin.mtx();
+var mtx = new decentraland.mtx();
 
 // Add output 0 from our coinbase.
 mtx.addInput(cb, 0);
@@ -443,23 +439,23 @@ assert(tx.getFee(mtx.view) === 40000);
 
 The above method works, but is pretty contrived. In reality, you probably
 wouldn't select inputs and calculate the fee by hand. You would want a
-change output added. BCoin has a nice method of dealing with this.
+change output added. Decentraland Node has a nice method of dealing with this.
 
 Let's try it more realistically:
 
 ``` js
-var bcoin = require('bcoin');
+var decentraland = require('decentraland-node');
 var assert = require('assert');
-var constants = bcoin.constants;
+var constants = decentraland.constants;
 
-var master = bcoin.hd.fromMnemonic();
+var master = decentraland.hd.fromMnemonic();
 var key = master.derive('m/44/0/0/0/0');
-var keyring = new bcoin.keyring(key.privateKey);
-var cb = new bcoin.mtx();
+var keyring = new decentraland.keyring(key.privateKey);
+var cb = new decentraland.mtx();
 
 cb.addInput({
-  prevout: new bcoin.outpoint(),
-  script: new bcoin.script(),
+  prevout: new decentraland.outpoint(),
+  script: new decentraland.script(),
   sequence: 0xffffffff
 });
 
@@ -475,11 +471,11 @@ var coins = [];
 // Convert the coinbase output to a Coin
 // object and add it to our available coins.
 // In reality you might get these coins from a wallet.
-var coin = bcoin.coin.fromTX(cb, 0);
+var coin = decentraland.coin.fromTX(cb, 0);
 coins.push(coin);
 
 // Create our redeeming transaction.
-var mtx = new bcoin.mtx();
+var mtx = new decentraland.mtx();
 
 // Send 10,000 satoshis to ourself.
 mtx.addOutput({
@@ -525,12 +521,12 @@ assert(tx.verify(mtx.view));
 Scripts are array-like objects with some helper functions.
 
 ``` js
-var bcoin = require('bcoin');
+var decentraland = require('decentraland-node');
 var assert = require('assert');
-var BN = bcoin.bn;
-var opcodes = bcoin.script.opcodes;
+var BN = decentraland.bn;
+var opcodes = decentraland.script.opcodes;
 
-var output = new bcoin.script();
+var output = new decentraland.script();
 output.push(opcodes.OP_DROP);
 output.push(opcodes.OP_ADD);
 output.push(new BN(7));
@@ -540,7 +536,7 @@ output.push(opcodes.OP_NUMEQUAL);
 output.compile();
 assert(output.getSmall(2) === 7); // compiled as OP_7
 
-var input = new bcoin.script();
+var input = new decentraland.script();
 input.set(0, 'hello world'); // add some metadata
 input.push(new BN(2));
 input.push(new BN(5));
@@ -550,12 +546,12 @@ input.compile();
 
 // A stack is another array-like object which contains
 // only Buffers (whereas scripts contain Opcode objects).
-var stack = new bcoin.stack();
+var stack = new decentraland.stack();
 input.execute(stack);
 output.execute(stack);
 // Verify the script was successful in its execution:
 assert(stack.length === 1);
-assert(bcoin.script.bool(stack.pop()) === true);
+assert(decentraland.script.bool(stack.pop()) === true);
 ```
 
 Using a witness would be similar, but witnesses do not get executed, they
@@ -563,7 +559,7 @@ simply _become_ the stack. The witness object itself is very similar to the
 Stack object (an array-like object containing Buffers).
 
 ``` js
-var witness = new bcoin.witness();
+var witness = new decentraland.witness();
 witness.push(new BN(2));
 witness.push(new BN(5));
 witness.push('hello world');
@@ -574,16 +570,16 @@ output.execute(stack);
 
 ## Wallet usage
 
-BCoin maintains a wallet database which contains every wallet. Wallets are _not
+Decentraland Node maintains a wallet database which contains every wallet. Wallets are _not
 usable_ without also using a wallet database. For testing, the wallet database
 can be in-memory, but it must be there.
 
-Wallets in bcoin use bip44. They also originally supported bip45 for multisig,
+Wallets in decentraland use bip44. They also originally supported bip45 for multisig,
 but support was removed to reduce code complexity, and also because bip45
 doesn't seem to add any benefit in practice.
 
 The wallet database can contain many different wallets, with many different
-accounts, with many different addresses for each account. BCoin should
+accounts, with many different addresses for each account. Decentraland Node should
 theoretically be able to scale to hundreds of thousands of
 wallets/accounts/addresses.
 
@@ -601,7 +597,7 @@ TODO
 
 ## Design
 
-BCoin is thoroughly event driven. It has a fullnode object, but BCoin was
+Decentraland Node is thoroughly event driven. It has a fullnode object, but Decentraland Node was
 specifically designed so the mempool, blockchain, p2p pool, and wallet database
 could all be used separately. All the fullnode object does is tie these things
 together. It's essentially a huge proxying of events. The general communication
@@ -621,7 +617,7 @@ http client -> tx -> http server -> mempool
 ```
 
 Not only does the loose coupling make testing easier, it ensures people can
-utilize bcoin for many use cases.
+utilize decentraland for many use cases.
 
 ### Performance
 
@@ -637,7 +633,7 @@ well-written.
 
 #### Concurrency
 
-BCoin runs in node.js, so the javascript code is limited to one thread. We
+Decentraland Node runs in node.js, so the javascript code is limited to one thread. We
 solve this limitation by spinning up persistent worker processes for
 transaction verification (webworkers when in the browser). This ensures the
 blockchain and mempool do not block the master process very much. It also means
@@ -651,24 +647,24 @@ data to another process.
 But of course, there is a benefit to having a multi-process architecture: the
 worker processes can die on their own without disturbing the master process.
 
-BCoin uses [secp256k1-node][secp256k1-node] for ecdsa verification, which is a
+Decentraland Node uses [secp256k1-node][secp256k1-node] for ecdsa verification, which is a
 node.js binding to Pieter Wuille's blazingly fast [libsecp256k1][libsecp256k1]
 library.
 
-In the browser, bcoin will use [elliptic][elliptic], the fastest javascript
+In the browser, decentraland will use [elliptic][elliptic], the fastest javascript
 ecdsa implementation. It will obviously never beat C and hand-optimized
 assembly, but it's still usable.
 
 #### Benefits
 
 The real feature of javascript is that your code will run almost anywhere. With
-bcoin, we now have a full node that will run on almost any browser, on laptops,
+decentraland, we now have a full node that will run on almost any browser, on laptops,
 on servers, on smartphones, on most devices you can imagine, even by simply
 visiting a webpage.
 
 ## Disclaimer
 
-BCoin does not guarantee you against theft or lost funds due to bugs, mishaps,
+Decentraland Node does not guarantee you against theft or lost funds due to bugs, mishaps,
 or your own incompetence. You and you alone are responsible for securing your
 money.
 

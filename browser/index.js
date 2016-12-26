@@ -2,7 +2,7 @@
 
 'use strict';
 
-var util = bcoin.util;
+var util = decentraland.util;
 var body = document.getElementsByTagName('body')[0];
 var log = document.getElementById('log');
 var wdiv = document.getElementById('wallet');
@@ -31,7 +31,7 @@ function show(obj) {
   floating.style.display = 'block';
 }
 
-logger = new bcoin.logger({ level: 'debug' });
+logger = new decentraland.logger({ level: 'debug' });
 logger.writeConsole = function(level, args) {
   var msg = util.format(args, false);
   if (++scrollback > 1000) {
@@ -82,7 +82,7 @@ send.onsubmit = function(ev) {
   options = {
     outputs: [{
       address: address,
-      value: bcoin.amount.value(value)
+      value: decentraland.amount.value(value)
     }]
   };
 
@@ -149,7 +149,7 @@ function addItem(item, entry) {
   chainState.innerHTML = ''
     + 'tx=' + node.chain.db.state.tx
     + ' coin=' + node.chain.db.state.coin
-    + ' value=' + bcoin.amount.btc(node.chain.db.state.value);
+    + ' value=' + decentraland.amount.btc(node.chain.db.state.value);
 }
 
 function setMouseup(el, obj) {
@@ -183,11 +183,11 @@ function formatWallet(wallet) {
 
   wallet.getBalance().then(function(balance) {
     html += 'Confirmed Balance: <b>'
-      + bcoin.amount.btc(balance.confirmed)
+      + decentraland.amount.btc(balance.confirmed)
       + '</b><br>';
 
     html += 'Unconfirmed Balance: <b>'
-      + bcoin.amount.btc(balance.unconfirmed)
+      + decentraland.amount.btc(balance.unconfirmed)
       + '</b><br>';
 
     return wallet.getHistory();
@@ -210,7 +210,7 @@ function formatWallet(wallet) {
   });
 }
 
-options = bcoin.config({
+options = decentraland.config({
   query: true,
   network: 'segnet4',
   db: 'leveldb',
@@ -219,10 +219,10 @@ options = bcoin.config({
   logger: logger
 });
 
-bcoin.set(options);
+decentraland.set(options);
 
-node = new bcoin.fullnode(options);
-node.rpc = new bcoin.rpc(node);
+node = new decentraland.fullnode(options);
+node.rpc = new decentraland.rpc(node);
 
 node.on('error', function(err) {
   ;

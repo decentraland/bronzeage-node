@@ -1,4 +1,4 @@
-var bcoin = require('../');
+var decentraland = require('../');
 var walletdb = require('../lib/wallet/walletdb');
 var constants = require('../lib/protocol/constants');
 var Path = require('../lib/wallet/path');
@@ -6,7 +6,7 @@ var MasterKey = require('../lib/wallet/masterkey');
 var Account = require('../lib/wallet/account');
 var Wallet = require('../lib/wallet/wallet');
 var layout = walletdb.layout;
-var co = bcoin.co;
+var co = decentraland.co;
 var assert = require('assert');
 var file = process.argv[2];
 var BufferReader = require('../lib/utils/reader');
@@ -17,7 +17,7 @@ assert(typeof file === 'string', 'Please pass in a database path.');
 
 file = file.replace(/\.ldb\/?$/, '');
 
-db = bcoin.ldb({
+db = decentraland.ldb({
   location: file,
   db: 'leveldb',
   compression: true,
@@ -87,7 +87,7 @@ var updatePathMap = co(function* updatePathMap() {
           continue;
         }
         ring = keyFromRaw(path.data);
-        path.data = new bcoin.keyring(ring).toRaw();
+        path.data = new decentraland.keyring(ring).toRaw();
       }
       batch.put(layout.P(key, hash), path.toRaw());
     }
@@ -276,7 +276,7 @@ function accountFromRaw(data, dbkey) {
   dbkey = readAccountKey(dbkey);
   account.wid = dbkey.wid;
   account.id = 'doesntmatter';
-  account.network = bcoin.network.fromMagic(p.readU32());
+  account.network = decentraland.network.fromMagic(p.readU32());
   account.name = p.readVarString('utf8');
   account.initialized = p.readU8() === 1;
   account.type = p.readU8();
@@ -286,7 +286,7 @@ function accountFromRaw(data, dbkey) {
   account.accountIndex = p.readU32();
   account.receiveDepth = p.readU32();
   account.changeDepth = p.readU32();
-  account.accountKey = bcoin.hd.fromRaw(p.readBytes(82));
+  account.accountKey = decentraland.hd.fromRaw(p.readBytes(82));
   account.keys = [];
   account.watchOnly = false;
   account.nestedDepth = 0;
@@ -302,7 +302,7 @@ function accountFromRaw(data, dbkey) {
   count = p.readU8();
 
   for (i = 0; i < count; i++) {
-    key = bcoin.hd.fromRaw(p.readBytes(82));
+    key = decentraland.hd.fromRaw(p.readBytes(82));
     account.keys.push(key);
   }
 
@@ -314,7 +314,7 @@ function walletFromRaw(data) {
   var p = new BufferReader(data);
   var id;
 
-  wallet.network = bcoin.network.fromMagic(p.readU32());
+  wallet.network = decentraland.network.fromMagic(p.readU32());
   wallet.wid = p.readU32();
   wallet.id = p.readVarString('utf8');
   wallet.initialized = p.readU8() === 1;
@@ -340,14 +340,14 @@ function keyFromRaw(data, network) {
   var p = new BufferReader(data);
   var key, script;
 
-  ring.network = bcoin.network.get(network);
+  ring.network = decentraland.network.get(network);
   ring.witness = p.readU8() === 1;
 
   key = p.readVarBytes();
 
   if (key.length === 32) {
     ring.privateKey = key;
-    ring.publicKey = bcoin.ec.publicKeyCreate(key, true);
+    ring.publicKey = decentraland.ec.publicKeyCreate(key, true);
   } else {
     ring.publicKey = key;
   }
@@ -355,7 +355,7 @@ function keyFromRaw(data, network) {
   script = p.readVarBytes();
 
   if (script.length > 0)
-    ring.script = bcoin.script.fromRaw(script);
+    ring.script = decentraland.script.fromRaw(script);
 
   return ring;
 }

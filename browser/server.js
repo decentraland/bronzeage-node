@@ -16,9 +16,9 @@ proxy.on('error', function(err) {
 
 var index = fs.readFileSync(__dirname + '/index.html');
 var indexjs = fs.readFileSync(__dirname + '/index.js');
-var bcoin = fs.readFileSync(__dirname + '/bcoin.js');
-var master = fs.readFileSync(__dirname + '/bcoin-master.js');
-var worker = fs.readFileSync(__dirname + '/bcoin-worker.js');
+var decentraland = fs.readFileSync(__dirname + '/decentraland.js');
+var master = fs.readFileSync(__dirname + '/decentraland-master.js');
+var worker = fs.readFileSync(__dirname + '/decentraland-worker.js');
 
 server.get('/favicon.ico', function(req, res, send, next) {
   send(404, '', 'text');
@@ -32,15 +32,15 @@ server.get('/index.js', function(req, res, send, next) {
   send(200, indexjs, 'js');
 });
 
-server.get('/bcoin.js', function(req, res, send, next) {
-  send(200, bcoin, 'js');
+server.get('/decentraland.js', function(req, res, send, next) {
+  send(200, decentraland, 'js');
 });
 
-server.get('/bcoin-master.js', function(req, res, send, next) {
+server.get('/decentraland-master.js', function(req, res, send, next) {
   send(200, master, 'js');
 });
 
-server.get('/bcoin-worker.js', function(req, res, send, next) {
+server.get('/decentraland-worker.js', function(req, res, send, next) {
   send(200, worker, 'js');
 });
 

@@ -1,26 +1,26 @@
 {
-  "name": "bcoin",
+  "name": "decentraland",
   "version": "1.0.0-alpha",
   "description": "Bitcoin bike-shed",
-  "main": "./lib/bcoin.js",
+  "main": "./lib/decentraland.js",
   "bin": {
-    "bcoin-node": "./bin/node",
-    "bcoin-spvnode": "./bin/spvnode",
-    "bcoin-cli": "./bin/cli",
-    "bcoin": "./bin/bcoin"
+    "decentraland-node": "./bin/node",
+    "decentraland-spvnode": "./bin/spvnode",
+    "decentraland-cli": "./bin/cli",
+    "decentraland": "./bin/decentraland"
   },
   "preferGlobal": true,
   "scripts": {
     "test": "mocha --reporter spec test/*-test.js",
-    "browserify": "browserify --im -o browser/bcoin.js lib/bcoin.js && browserify --im -o browser/bcoin-master.js lib/workers/master.js",
-    "uglify": "uglifyjs -m -o browser/bcoin.min.js browser/bcoin.js && uglifyjs -m -o browser/bcoin-master.min.js browser/bcoin-master.js",
-    "clean": "rm browser/bcoin.js browser/bcoin.min.js browser/bcoin-master.js browser/bcoin-master.min.js",
+    "browserify": "browserify --im -o browser/decentraland.js lib/decentraland.js && browserify --im -o browser/decentraland-master.js lib/workers/master.js",
+    "uglify": "uglifyjs -m -o browser/decentraland.min.js browser/decentraland.js && uglifyjs -m -o browser/decentraland-master.min.js browser/decentraland-master.js",
+    "clean": "rm browser/decentraland.js browser/decentraland.min.js browser/decentraland-master.js browser/decentraland-master.min.js",
     "lint": "jshint lib/ || exit 0"
   },
-  "repository": "git://github.com/bcoin-org/bcoin.git",
+  "repository": "git://github.com/decentraland/decentraland-node.git",
   "keywords": [
-    "bcoin",
-    "bitcoin",
+    "decentraland",
+    "vr",
     "blockchain",
     "wallet"
   ],
@@ -30,9 +30,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bcoin-org/bcoin/issues"
+    "url": "https://github.com/decentraland/decentraland-node/issues"
   },
-  "homepage": "https://github.com/bcoin-org/bcoin",
+  "homepage": "https://github.com/decentraland/decentraland-node",
   "engines": {
     "node": ">= 0.11.0"
   },
@@ -41,7 +41,7 @@
     "elliptic": "6.3.2"
   },
   "optionalDependencies": {
-    "bcoin-native": "0.0.12",
+    "decentraland-native": "0.0.12",
     "leveldown": "1.5.0",
     "secp256k1": "3.2.0",
     "socket.io": "1.4.8",
@@ -86,7 +86,7 @@
     "child_process": "./browser/empty.js",
     "os": "./browser/empty.js",
     "net": "./browser/empty.js",
-    "bcoin-native": "./browser/empty.js",
+    "decentraland-native": "./browser/empty.js",
     "secp256k1": "./browser/empty.js"
   },
   "browserify": {

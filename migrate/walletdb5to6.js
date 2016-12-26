@@ -1,10 +1,10 @@
 var assert = require('assert');
-var bcoin = require('../');
+var decentraland = require('../');
 var constants = require('../lib/protocol/constants');
 var BufferWriter = require('../lib/utils/writer');
 var BufferReader = require('../lib/utils/reader');
 var util = require('../lib/utils/util');
-var co = bcoin.co;
+var co = decentraland.co;
 var file = process.argv[2];
 var db, batch;
 
@@ -12,7 +12,7 @@ assert(typeof file === 'string', 'Please pass in a database path.');
 
 file = file.replace(/\.ldb\/?$/, '');
 
-db = bcoin.ldb({
+db = decentraland.ldb({
   location: file,
   db: 'leveldb',
   compression: true,
@@ -276,6 +276,6 @@ co.spawn(function* () {
 }).then(function() {
   console.log('Migration complete.');
   console.log('Rescan is required...');
-  console.log('Start bcoin with `--start-height=[wallet-creation-height]`.');
+  console.log('Start decentraland with `--start-height=[wallet-creation-height]`.');
   process.exit(0);
 });

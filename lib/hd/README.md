@@ -1,4 +1,4 @@
-HD mnemonics and keys (BIP32, BIP39) for bcoin.
+HD mnemonics and keys (BIP32, BIP39) for decentraland.
 
 Parts of this software were originally based on bitcore-lib:
 
@@ -11,7 +11,7 @@ BIP32
 
 ```
 Copyright (c) 2015-2016, Christopher Jeffrey (MIT License).
-https://github.com/bcoin-org/bcoin
+https://github.com/decentraland/decentraland-node
 
 Copyright (c) 2013-2015 BitPay, Inc.
 

@@ -17,7 +17,7 @@ var alertData = fs.readFileSync(__dirname + '/data/alertTests.raw');
 
 describe('Protocol', function() {
   var version = require('../package.json').version;
-  var agent = '/bcoin:' + version + '/';
+  var agent = '/decentraland:' + version + '/';
   var parser, framer, v1, v2, hosts;
 
   beforeEach(function() {
