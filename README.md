@@ -680,6 +680,8 @@ Copyright (c) 2014-2015, Fedor Indutny (MIT License).
 
 Copyright (c) 2014-2016, Christopher Jeffrey (MIT License).
 
+Copyright (c) 2016-2017, Manuel Araoz (MIT License).
+
 See LICENSE for more info.
 
 [v8]: https://www.youtube.com/watch?v=UJPdhx5zTaw
