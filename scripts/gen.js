@@ -7,8 +7,9 @@ var TX = require('../lib/primitives/tx');
 var Block = require('../lib/primitives/block');
 var Script = require('../lib/script/script');
 var Opcode = require('../lib/script/opcode');
+var networks = require('../lib/protocol/networks');
 var opcodes = constants.opcodes;
-var main, testnet, regtest, segnet3, segnet4, btcd;
+var main, testnet, regtest;
 
 function createGenesisBlock(options) {
   var flags = options.flags;
@@ -61,7 +62,7 @@ function createGenesisBlock(options) {
     prevBlock: constants.NULL_HASH,
     merkleRoot: tx.hash('hex'),
     ts: options.ts,
-    bits: options.bits,
+    bits: options.network.pow.bits,
     nonce: options.nonce,
     height: 0
   });
@@ -74,43 +75,22 @@ function createGenesisBlock(options) {
 main = createGenesisBlock({
   version: 1,
   ts: 1231006505,
-  bits: 486604799,
-  nonce: 2083236893
+  nonce: 2083236893,
+  network: networks.main,
 });
 
 testnet = createGenesisBlock({
   version: 1,
   ts: 1296688602,
-  bits: 486604799,
-  nonce: 414098458
+  nonce: 414098458,
+  network: networks.testnet,
 });
 
 regtest = createGenesisBlock({
   version: 1,
   ts: 1296688602,
-  bits: 545259519,
-  nonce: 2
-});
-
-segnet3 = createGenesisBlock({
-  version: 1,
-  ts: 1452831101,
-  bits: 486604799,
-  nonce: 0
-});
-
-segnet4 = createGenesisBlock({
-  version: 1,
-  ts: 1452831101,
-  bits: 503447551,
-  nonce: 0
-});
-
-btcd = createGenesisBlock({
-  version: 1,
-  ts: 1401292357,
-  bits: 545259519,
-  nonce: 2
+  nonce: 2,
+  network: networks.regtest,
 });
 
 util.log(main);
@@ -118,10 +98,6 @@ util.log('');
 util.log(testnet);
 util.log('');
 util.log(regtest);
-util.log('');
-util.log(segnet3);
-util.log('');
-util.log(segnet4);
 util.log('');
 util.log('');
 util.log('main hash: %s', main.rhash());
@@ -132,12 +108,3 @@ util.log('testnet raw: %s', testnet.toRaw().toString('hex'));
 util.log('');
 util.log('regtest hash: %s', regtest.rhash());
 util.log('regtest raw: %s', regtest.toRaw().toString('hex'));
-util.log('');
-util.log('segnet3 hash: %s', segnet3.rhash());
-util.log('segnet3 raw: %s', segnet3.toRaw().toString('hex'));
-util.log('');
-util.log('segnet4 hash: %s', segnet4.rhash());
-util.log('segnet4 raw: %s', segnet4.toRaw().toString('hex'));
-util.log('');
-util.log('btcd simnet hash: %s', btcd.rhash());
-util.log('btcd simnet raw: %s', btcd.toRaw().toString('hex'));

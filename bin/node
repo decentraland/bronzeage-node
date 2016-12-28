@@ -5,7 +5,6 @@
 process.title = 'decentraland-node';
 
 var decentraland = require('../');
-var assert = require('assert');
 
 var options = decentraland.config({
   config: true,
@@ -14,8 +13,11 @@ var options = decentraland.config({
   logLevel: 'debug',
   logFile: true,
   db: 'leveldb',
-  listen: true
+  listen: true,
 });
+
+options.bootstrapNetwork = true;
+options.useWorkers = true;
 
 decentraland.set(options);
 
@@ -33,5 +35,6 @@ process.on('uncaughtException', function(err) {
 
 node.open().then(function() {
   node.pool.connect();
-  //node.startSync();
+  node.miner.start();
+  node.startSync();
 });
