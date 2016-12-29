@@ -13,6 +13,7 @@ var options = decentraland.config({
   logLevel: 'debug',
   logFile: true,
   db: 'leveldb',
+  indexTX: true,
   listen: true,
 });
 
