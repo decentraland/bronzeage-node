@@ -24,7 +24,7 @@ decentraland.set(options);
 var node = new decentraland.fullnode(options);
 
 node.on('error', function(err) {
-  ;
+  throw err;
 });
 
 process.on('uncaughtException', function(err) {

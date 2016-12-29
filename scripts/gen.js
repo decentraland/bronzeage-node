@@ -14,13 +14,17 @@ var main, testnet, regtest;
 function createGenesisBlock(options) {
   var flags = options.flags;
   var script = options.script;
-  var reward = options.reward;
+  var content = options.content;
   var tx, block;
 
   if (!flags) {
     flags = new Buffer(
       'The Times 03/Jan/2009 Chancellor on brink of second bailout for banks',
       'ascii');
+  }
+
+  if (!content) {
+    content = new Buffer(constants.NULL_HASH, 'hex');
   }
 
   if (!script) {
@@ -31,9 +35,6 @@ function createGenesisBlock(options) {
       opcodes.OP_CHECKSIG
     ]);
   }
-
-  if (!reward)
-    reward = 50 * constants.COIN;
 
   tx = new TX({
     version: 1,
@@ -51,20 +52,22 @@ function createGenesisBlock(options) {
       sequence: 0xffffffff
     }],
     outputs: [{
-      value: reward,
+      content,
+      x: 0,
+      y: 0,
       script: script
     }],
     locktime: 0
   });
 
   block = new Block({
-    version: options.version,
+    version: options.network.genesis.version,
     prevBlock: constants.NULL_HASH,
     merkleRoot: tx.hash('hex'),
-    ts: options.ts,
-    bits: options.network.pow.bits,
-    nonce: options.nonce,
-    height: 0
+    ts: options.network.genesis.ts,
+    bits: options.network.genesis.bits,
+    nonce: options.network.genesis.nonce,
+    height: 0,
   });
 
   block.addTX(tx);
@@ -72,39 +75,38 @@ function createGenesisBlock(options) {
   return block;
 }
 
-main = createGenesisBlock({
-  version: 1,
-  ts: 1231006505,
-  nonce: 2083236893,
-  network: networks.main,
-});
+module.exports = createGenesisBlock;
 
-testnet = createGenesisBlock({
-  version: 1,
-  ts: 1296688602,
-  nonce: 414098458,
-  network: networks.testnet,
-});
+if (require.main === module) {
 
-regtest = createGenesisBlock({
-  version: 1,
-  ts: 1296688602,
-  nonce: 2,
-  network: networks.regtest,
-});
+  main = createGenesisBlock({
+    network: networks.main,
+  });
 
-util.log(main);
-util.log('');
-util.log(testnet);
-util.log('');
-util.log(regtest);
-util.log('');
-util.log('');
-util.log('main hash: %s', main.rhash());
-util.log('main raw: %s', main.toRaw().toString('hex'));
-util.log('');
-util.log('testnet hash: %s', testnet.rhash());
-util.log('testnet raw: %s', testnet.toRaw().toString('hex'));
-util.log('');
-util.log('regtest hash: %s', regtest.rhash());
-util.log('regtest raw: %s', regtest.toRaw().toString('hex'));
+  testnet = createGenesisBlock({
+    network: networks.testnet,
+  });
+
+  regtest = createGenesisBlock({
+    network: networks.regtest,
+  });
+
+  util.log(main);
+  util.log('');
+  util.log(testnet);
+  util.log('');
+  util.log(regtest);
+  util.log('');
+  util.log('');
+  util.log('main hash: %s', main.rhash());
+  util.log('main merkleroot: %s', main.merkleRoot);
+  util.log('main raw: %s', main.toRaw().toString('hex'));
+  util.log('');
+  util.log('testnet hash: %s', testnet.rhash());
+  util.log('testnet merkleroot: %s', testnet.merkleRoot);
+  util.log('testnet raw: %s', testnet.toRaw().toString('hex'));
+  util.log('');
+  util.log('regtest hash: %s', regtest.rhash());
+  util.log('regtest merkleroot: %s', regtest.merkleRoot);
+  util.log('regtest raw: %s', regtest.toRaw().toString('hex'));
+}
