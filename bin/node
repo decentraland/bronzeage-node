@@ -17,7 +17,7 @@ var options = decentraland.config({
 });
 
 options.bootstrapNetwork = true;
-options.useWorkers = true;
+options.useWorkers = false;
 
 decentraland.set(options);
 
