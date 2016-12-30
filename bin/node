@@ -18,14 +18,14 @@ var options = decentraland.config({
 });
 
 options.bootstrapNetwork = true;
-options.useWorkers = false;
+options.useWorkers = true;
 
 decentraland.set(options);
 
 var node = new decentraland.fullnode(options);
 
 node.on('error', function(err) {
-  throw err;
+  ;
 });
 
 process.on('uncaughtException', function(err) {
@@ -34,8 +34,12 @@ process.on('uncaughtException', function(err) {
   process.exit(1);
 });
 
+const startMiner = () => {
+  node.miner.start();
+};
 node.open().then(function() {
   node.pool.connect();
-  node.miner.start();
   node.startSync();
+  setTimeout(startMiner, 1000);
 });
+
