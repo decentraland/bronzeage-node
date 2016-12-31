@@ -39,7 +39,9 @@
   },
   "dependencies": {
     "bn.js": "4.11.6",
+    "cors": "^2.8.1",
     "elliptic": "6.3.2",
+    "express": "^4.14.0",
     "install": "^0.8.4",
     "mkdirp": "^0.5.1",
     "npm": "^4.0.5",
