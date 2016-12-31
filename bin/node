@@ -43,3 +43,21 @@ node.open().then(function() {
   setTimeout(startMiner, 1000);
 });
 
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+const KEY = process.env.KEY || 'secret'
+app.set('port', (process.env.PORT || 9000))
+
+app.use(cors());
+app.use('/tile', express.static('tiles'));
+
+app.get('/tiles', function(request, response) {
+  response.status(200).json({status: 'OK'});
+  return;
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'))
+})
