@@ -35,8 +35,12 @@ process.on('uncaughtException', function(err) {
 });
 
 const startMiner = () => {
-  //node.miner.start();
+  if (options.startMiner) {
+    node.logger.info('Starting miner ...');
+    node.miner.start();
+  }
 };
+
 node.open().then(function() {
   node.pool.connect();
   node.startSync();
