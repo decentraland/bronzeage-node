@@ -6,3 +6,4 @@ docker_data/
 *.swp
 *.swo
 0-0.tld
+.DS_Store
