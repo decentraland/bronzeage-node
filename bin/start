@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./bin/decentraland-node --fast --port=2001 --prefix="~/.data" --httpport=8001 --n=testnet --apikey=38Dpwnjsj2zn3QETJ6GKv8YkHomA --contentport=9001 --startminer
