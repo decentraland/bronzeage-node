@@ -2,7 +2,9 @@ version: '2'
 
 services:
   app:
-    image: decentraland-node
+    build:
+      dockerfile: "./Dockerfile"
+      context: "."
     ports:
       - "8301:8301"
       - "9301:9301"
