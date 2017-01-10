@@ -85,6 +85,9 @@ if (require.main === module) {
 
   testnet = createGenesisBlock({
     network: networks.testnet,
+    content: '',
+    script: new Script('76a9144780ee849be547b5ec9efde07fbcfe2d87b69a3088ac'),
+    flags: new Buffer('000000000000000001cc2b47d703cfc27abfe07fca9e127347c4b5651f107709', 'hex'),
   });
 
   regtest = createGenesisBlock({
