@@ -6,6 +6,6 @@ WORKDIR /usr/src
 
 RUN npm install
 
-EXPOSE 2001 8001 9001
+EXPOSE 2301 8301 9301
 
 CMD ["./bin/start"]

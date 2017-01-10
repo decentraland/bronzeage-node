@@ -4,4 +4,6 @@ services:
   app:
     image: decentraland-node
     ports:
-      - "8001:8001"
+      - "8301:8301"
+      - "9301:9301"
+      - "2301:2301"
