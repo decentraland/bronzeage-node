@@ -52,7 +52,7 @@ const cors = require('cors');
 const app = express();
 
 const KEY = process.env.KEY || 'secret';
-app.set('port', (options.contentPort || 9000));
+app.set('port', (options.contentPort || 9301));
 
 app.use(cors());
 app.use('/tile', express.static(node.chain.content._dirPath()));
