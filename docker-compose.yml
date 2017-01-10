@@ -5,7 +5,4 @@ services:
     build:
       dockerfile: "./Dockerfile"
       context: "."
-    ports:
-      - "8301:8301"
-      - "9301:9301"
-      - "2301:2301"
+    network_mode: bridge
