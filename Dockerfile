@@ -10,4 +10,6 @@ COPY [".", "/usr/src/"]
 
 EXPOSE 2301 8301 9301
 
+VOLUME "/data"
+
 CMD ["./bin/start"]

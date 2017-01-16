@@ -5,6 +5,8 @@ services:
     build:
       dockerfile: "./Dockerfile"
       context: "."
+    volumes:
+      - ./db:/data
     ports:
       - "2301:2301"
       - "8301:8301"
