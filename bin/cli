@@ -2,6 +2,7 @@
 
 'use strict';
 
+var fs = require('fs');
 var config = require('../lib/node/config');
 var util = require('../lib/utils/util');
 var co = require('../lib/utils/co');
@@ -474,6 +475,18 @@ CLI.prototype.rpc = co(function* rpc() {
       param = arg;
     }
     params.push(param);
+  }
+
+  if (method==='settile') {
+    var tileFile = params[2];
+    console.log("Reading tile file", tileFile);
+
+    if (!fs.existsSync(tileFile)) {
+      throw new Error('File '+ tileFile +' not found');
+    }
+
+    var content = fs.readFileSync(tileFile).toString('base64');
+    params[2] = content;
   }
 
   result = yield this.client.rpc.call(method, params);
