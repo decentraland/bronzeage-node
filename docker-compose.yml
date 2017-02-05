@@ -6,7 +6,11 @@ services:
       dockerfile: "./Dockerfile"
       context: "."
     volumes:
-      - ./db:/data
+      - "./db:/data"
+      - ".:/usr/src/"
+      - "/usr/src/node_modules"
+    environment:
+      NODE_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
     ports:
       - "2301:2301"
       - "8301:8301"
