@@ -3,6 +3,7 @@
 'use strict';
 
 process.title = 'decentraland-node';
+const path = require('path');
 
 var decentraland = require('../');
 
