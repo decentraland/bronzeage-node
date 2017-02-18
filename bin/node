@@ -55,6 +55,7 @@ const KEY = process.env.KEY || 'secret';
 app.set('port', (options.contentPort || 9301));
 
 app.use(cors());
+app.use('/tile/0.0.lnd', express.static(path.join(__dirname, '../data/genesis.tld')));
 app.use('/tile', express.static(node.chain.content._dirPath()));
 
 app.listen(app.get('port'), function() {
