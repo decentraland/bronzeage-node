@@ -30,7 +30,6 @@ Below a summary of the main differences with Bitcoin’s blockchain:
 * Time between blocks: 10 minutes (for testnet).
 * Seed land’s file descriptors through torrent network.
 
-For more information about how to run your own miner [click here](https://github.com/decentraland/decentraland-node).
 
 # How to run a node?
 ```
