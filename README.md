@@ -36,6 +36,10 @@ Below a summary of the main differences with Bitcoin’s blockchain:
 docker run decentraland
 ```
 
+# How can I edit the land I own?
+Once you mined some land, you can use Unity to edit it's content. Check out [this repo](https://github.com/decentraland/bronzeage-editor) for more information.
+
+
 # Development
 
 ## Run node
