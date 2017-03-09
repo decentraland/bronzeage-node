@@ -8,13 +8,13 @@ Decentraland is an open-source initiative to build a decentralized virtual reali
 ## How It Works?
 Decentraland runs on top of its own blockchain: a modified Bitcoin blockchain to represent a non fungible asset (land). Transactions in the Decentraland chain can transfer land ownership or change land content.
 
-The ownership of land is handled just like bitcoin, by using asymmetric cryptography and a stack-based scripting language.
+Ownership of a given land tile is handled exactly like Bitcoin: a tile is transferable by a given private key, and only the owner has access to it.
 
-The land’s content can be any type of file and the blockchain will only store a hash of it. The original file will be distributed via torrent’s protocol.
+The land content can be any type of file and the blockchain will only store its hash. The actual file is distributed via the torrent network.
 
 Finally, the network is secured by Bitcoin’s proof-of-work algorithm. Rewarding its miners not with coins, but with *land*.
 
-Below a summary of the main differences with Bitcoin’s blockchain:
+Below is a summary of the main differences with Bitcoin’s blockchain:
 
 ### Transaction:
 * Removed the outputs *value* field.
