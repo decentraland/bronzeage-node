@@ -1,12 +1,12 @@
 # Decentraland
-Decentraland is an open-source initiative to build a decentralized virtual reality. Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership. [Try it now](https://decentraland.org/app/).
+Decentraland is an open-source initiative to build a decentralized virtual reality world. Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership. [Try it now](https://decentraland.org/app/).
 
 ## Stack
-* [bcoin](https://github.com/bcoin-org/bcoin): forked a bitcoin's full-node implementation in JS.
-* [Webtorrent](https://github.com/feross/webtorrent): leveraged torrent protocol to distribute world’s land content.
+* [bcoin](https://github.com/bcoin-org/bcoin): a bitcoin's full-node implementation in JS.
+* [Webtorrent](https://github.com/feross/webtorrent): torrent protocol client, used to distribute world’s land content.
 
 ## How It Works?
-Decentraland runs on top of its own blockchain. A modified Bitcoin’s blockchain to represent a non fungible asset, a.k.a. *land*. Transactions in Decentraland’s protocol can transfer land’s ownership and change its content.
+Decentraland runs on top of its own blockchain: a modified Bitcoin blockchain to represent a non fungible asset (land). Transactions in the Decentraland chain can transfer land ownership or change land content.
 
 The ownership of land is handled just like bitcoin, by using asymmetric cryptography and a stack-based scripting language.
 
@@ -17,14 +17,14 @@ Finally, the network is secured by Bitcoin’s proof-of-work algorithm. Rewardin
 Below a summary of the main differences with Bitcoin’s blockchain:
 
 ### Transaction:
-* Removed *Output*’s *value* field.
-* Add *x*, *y* and *content* fields to *Output*.
-* Each *Output* must have the same *x* and *y* as the corresponding *Input*.
-* A *Landbase* transaction must claim land adjacent to existing one.
+* Removed the outputs *value* field.
+* Added the *x*, *y* and *content* fields to outputs.
+* Each output must have the same *x* and *y* values as the corresponding input.
+* A *landbase* transaction must claim land adjacent to a prevoiusly mined land tile.
 
 ### RPC:
-* *gettile* call to fetch land’s file url.
-* *settile* call to create a transaction that updates land’s file content.
+* *gettile*: call to fetch the hash of a tile's content.
+* *settile*: call to create a transaction that updates the content of a tile.
 
 ### Network:
 * Time between blocks: 10 minutes (for testnet).
@@ -37,7 +37,7 @@ docker run decentraland
 ```
 
 # How can I edit the land I own?
-Once you mined some land, you can use Unity to edit it's content. Check out [this repo](https://github.com/decentraland/bronzeage-editor) for more information.
+Once you mine some land, you can use Unity to edit its content. Check out [this repo](https://github.com/decentraland/bronzeage-editor) for more information.
 
 
 # Development
