@@ -7,3 +7,4 @@ docker_data/
 *.swo
 0-0.tld
 .DS_Store
+.idea
