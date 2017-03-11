@@ -41,11 +41,13 @@
   "dependencies": {
     "bn.js": "4.11.6",
     "cors": "^2.8.1",
+    "create-torrent": "^3.28.0",
     "elliptic": "6.3.2",
     "express": "^4.14.0",
     "install": "^0.8.4",
     "mkdirp": "^0.5.1",
     "npm": "^4.0.5",
+    "parse-torrent": "^5.8.2",
     "webtorrent": "^0.98.0",
     "webtorrent-hybrid": "^1.0.5"
   },
