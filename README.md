@@ -1,3 +1,5 @@
+![Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/badge.svg)
+
 # Decentraland
 Decentraland is an open-source initiative to build a decentralized virtual reality world. Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership. [Try it now](https://decentraland.org/app/).
 
