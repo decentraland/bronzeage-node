@@ -10,7 +10,7 @@ owner. You can become a land owner either by having someone transfer you some
 of their parcels, or by mining new land. A new parcel of land is mined every 10
 minutes.
 
-[Try it now](https://decentraland.org/app/).
+[Explore Decentraland](https://decentraland.org/app/).
 
 ## Components
 
