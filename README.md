@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/decentraland/web/gh-pages/img/banner.png)
+
 ![Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/badge.svg)
 
 # Decentraland
