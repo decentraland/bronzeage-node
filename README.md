@@ -3,7 +3,24 @@
 ![Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/badge.svg)
 
 # Decentraland
-Decentraland is an open-source initiative to build a decentralized virtual reality world. Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership. [Try it now](https://decentraland.org/app/).
+
+Decentraland is an open-source initiative to build a shared virtual reality
+world. In Decentraland, the content of each piece of land is determined by its
+owner. You can become a land owner either by having someone transfer you some
+of their parcels, or by mining new land. A new parcel of land is mined every 10
+minutes.
+
+[Try it now](https://decentraland.org/app/).
+
+## Components
+
+* **Node**: An open and trustless land ownership record and scene content distribution network.
+* **Editor**: An easy to use 3D scene editor, that lets you publish scenes directly to any of your parcels.
+* **Browser**: A browser for navigating the virtual world of Decentraland.
+
+# Node
+
+Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership.
 
 ## Stack
 * [bcoin](https://github.com/bcoin-org/bcoin): a bitcoin's full-node implementation in JS.
@@ -35,12 +52,12 @@ Below is a summary of the main differences with Bitcoin’s blockchain:
 * Seed land’s file descriptors through torrent network.
 
 
-# How to run a node?
+## How to run a node?
 ```
 docker run decentraland
 ```
 
-# How can I edit the land I own?
+## How can I edit the land I own?
 Once you mine some land, you can use Unity to edit its content. Check out [this repo](https://github.com/decentraland/bronzeage-editor) for more information.
 
 
