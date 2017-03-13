@@ -83,3 +83,9 @@ docker-compose up
 Once you mine some land, you can use Unity to edit its content. Check out the
 [editor](https://github.com/decentraland/bronzeage-editor) for more
 information.
+
+## Community
+
+Join us on [Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/)!
+
+We're on [Twitter](https://twitter.com/decentraland) too.
