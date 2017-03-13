@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/decentraland/web/gh-pages/img/banner.png)
+[![Decentraland][logo]](https://decentraland.org/)
 
 ## About
 
@@ -92,3 +92,5 @@ information.
 Join us on [Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/)!
 
 We're on [Twitter](https://twitter.com/decentraland) too.
+
+[logo]: https://raw.githubusercontent.com/decentraland/web/gh-pages/img/banner.png
