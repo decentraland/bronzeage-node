@@ -7,8 +7,6 @@ services:
       context: "."
     volumes:
       - "./db:/data"
-      - ".:/usr/src/"
-      - "/usr/src/node_modules"
     environment:
       NODE_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
     ports:
