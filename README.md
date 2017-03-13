@@ -24,7 +24,7 @@ Blockchain technology is used to claim and transfer land, keeping a permanent re
 * [bcoin](https://github.com/bcoin-org/bcoin): a bitcoin's full-node implementation in JS.
 * [Webtorrent](https://github.com/feross/webtorrent): torrent protocol client, used to distribute world’s land content.
 
-## How It Works?
+## How Does It Work?
 Decentraland runs on top of its own blockchain: a modified Bitcoin blockchain to represent a non fungible asset (land). Transactions in the Decentraland chain can transfer land ownership or change land content.
 
 Ownership of a given land tile is handled exactly like Bitcoin: a tile is transferable by a given private key, and only the owner has access to it.
