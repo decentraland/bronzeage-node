@@ -18,56 +18,68 @@ minutes.
 
 # Node
 
-Blockchain technology is used to claim and transfer land, keeping a permanent record of ownership.
+A Bitcoin-like blockchain is used to maintain a universal record of land
+ownership, and a consensus of the virtual world description.
 
-## Stack
-* [bcoin](https://github.com/bcoin-org/bcoin): a bitcoin's full-node implementation in JS.
-* [Webtorrent](https://github.com/feross/webtorrent): torrent protocol client, used to distribute world’s land content.
+In the Decentraland blockchain, transactions can transfer the ownership of a
+given land parcel, as well as announce the hash of the scene content of the
+parcel. At any given time, the UTXO set has the description of the entire
+virtual world. The actual content of land parcels is distributed in a P2P
+manner, via the torrent network.
 
-## How Does It Work?
-Decentraland runs on top of its own blockchain: a modified Bitcoin blockchain to represent a non fungible asset (land). Transactions in the Decentraland chain can transfer land ownership or change land content.
+New blocks are mined with the same proof of work as Bitcoin, but instead of
+having a coinbase transaction creating fungible coins, there's a landbase
+transaction creating a single non-fungible asset: a land parcel at a unique,
+non-modifiable position.
 
-Ownership of a given land tile is handled exactly like Bitcoin: a tile is transferable by a given private key, and only the owner has access to it.
+## Design
 
-The land content can be any type of file and the blockchain will only store its hash. The actual file is distributed via the torrent network.
+The Decentraland node is a fork of [bcoin](https://github.com/bcoin-org/bcoin),
+a Bitcoin full-node implementation in JavaScript. In what follows we describe
+all the places where we depart from Bitcoin.
 
-Finally, the network is secured by Bitcoin’s proof-of-work algorithm. Rewarding its miners not with coins, but with *land*.
+### Consensus rules
 
-Below is a summary of the main differences with Bitcoin’s blockchain:
+Instead of having the coin value, Decentraland transaction outputs have the
+parcel x and y coordinates, and the info hash of the torrent with the 3D
+scene content for the parcel.
 
-### Transaction:
-* Removed the outputs *value* field.
-* Added the *x*, *y* and *content* fields to outputs.
-* Each output must have the same *x* and *y* values as the corresponding input.
-* A *landbase* transaction must claim land adjacent to a prevoiusly mined land tile.
+All transactions (except for landbase transactions) have exactly one output for
+each input. Each output MUST have the same x and y coordinates as the spent
+output of its corresponding input. Outputs MAY change the info hash field.
 
-### RPC:
-* *gettile*: call to fetch the hash of a tile's content.
-* *settile*: call to create a transaction that updates the content of a tile.
+The single output of a landbase transaction MUST claim a non-allocated land
+parcel, adjacent (with 4-connectivity) to a previously mined parcel.
 
-### Network:
-* Time between blocks: 10 minutes (for testnet).
-* Seed land’s file descriptors through torrent network.
+### RPC API
 
+There's two new JSON RPC endpoints that facilitate creation and querying of land
+content:
 
-## How to run a node?
+* **gettile(x, y)**: fetches the torrent info hash of a tile's content.
+
+* **settile(x, y, base64-content)**: publishes the content to the torrent
+network using [WebTorrent](https://github.com/feross/webtorrent) and creates a
+transaction updating the torrent info hash of one of your tiles.
+
+### Land content server
+
+By default, the node serves a static web server (at port 9301) with the latest
+scene content files for each mined parcel of land.
+
+The land content file for the parcel at x, y is served at: `GET /tile/x.y.lnd`
+
+## Run a node
+
+Make sure you have Docker
+[installed](https://docs.docker.com/engine/installation/), and run:
+
 ```
-docker run decentraland
-```
-
-## How can I edit the land I own?
-Once you mine some land, you can use Unity to edit its content. Check out [this repo](https://github.com/decentraland/bronzeage-editor) for more information.
-
-
-# Development
-
-## Run node
-```bash
-docker-compose build
 docker-compose up
 ```
 
-## Set tile
-```bash
-docker-compose run app ./bin/cli --apikey="38Dpwnjsj2zn3QETJ6GKv8YkHomA" --url=app:8301 rpc settile 0 1 /data/hola.png
-```
+## How can I edit the land I own?
+
+Once you mine some land, you can use Unity to edit its content. Check out the
+[editor](https://github.com/decentraland/bronzeage-editor) for more
+information.
