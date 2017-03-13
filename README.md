@@ -81,6 +81,9 @@ Make sure you have Docker
 docker-compose up
 ```
 
+Mining will start by default. To disable this, edit the file `bin/start` and
+remove the `--startminer` argument.
+
 ## How can I edit the land I own?
 
 Once you mine some land, you can use Unity to edit its content. Check out the
