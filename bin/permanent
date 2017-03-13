@@ -1,0 +1,6 @@
+#!/bin/bash
+
+until ./bin/start; do
+    echo "Node crashed with exit code $?.  Respawning.." >&2
+    sleep 1
+done
