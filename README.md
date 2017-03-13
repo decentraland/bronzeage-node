@@ -1,8 +1,6 @@
 ![](https://raw.githubusercontent.com/decentraland/web/gh-pages/img/banner.png)
 
-![Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/badge.svg)
-
-# Decentraland
+## About
 
 Decentraland is an open-source initiative to build a shared virtual reality
 world. In Decentraland, the content of each piece of land is determined by its
@@ -10,7 +8,7 @@ owner. You can become a land owner either by having someone transfer you some
 of their parcels, or by mining new land. A new parcel of land is mined every 10
 minutes.
 
-[Explore Decentraland](https://decentraland.org/app/).
+[Explore Decentraland](https://decentraland.org/app/)
 
 ## Components
 
