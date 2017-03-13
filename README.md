@@ -64,10 +64,13 @@ transaction updating the torrent info hash of one of your tiles.
 
 ### Land content server
 
-By default, the node serves a static web server (at port 9301) with the latest
-scene content files for each mined parcel of land.
+After each valid new block in the main chain, the node downloads from the
+torrent network the updated land content for each transaction in the block,
+effectively maintaining a parcel to scene index.
 
-The land content file for the parcel at x, y is served at: `GET /tile/x.y.lnd`
+By default, the node serves a static web server at port 9301 with the latest
+scene content files for each mined parcel of land. The land content file for
+the parcel at `(x, y)` is served at `GET /tile/x.y.lnd`
 
 ## Run a node
 
