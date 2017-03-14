@@ -1,7 +1,7 @@
 {
   "name": "decentraland",
   "version": "1.0.0-alpha",
-  "description": "Bitcoin bike-shed",
+  "description": "Full node for Decentraland, a blockchain-based virtual reality world.",
   "main": "./lib/decentraland.js",
   "bin": {
     "decentraland-node": "./bin/node",
