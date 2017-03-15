@@ -78,6 +78,7 @@ Make sure you have Docker
 [installed](https://docs.docker.com/engine/installation/), and run:
 
 ```
+sudo pip install docker-compose
 docker-compose up
 ```
 
