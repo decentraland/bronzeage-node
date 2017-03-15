@@ -75,10 +75,11 @@ the parcel at `(x, y)` is served at `GET /tile/x.y.lnd`
 ## Run a node
 
 Make sure you have Docker
-[installed](https://docs.docker.com/engine/installation/), and run:
+[installed](https://docs.docker.com/engine/installation/), and run (**note: 
+you might need to prepend `sudo` to these commands on Linux systems**):
 
 ```
-sudo pip install docker-compose
+pip install docker-compose
 docker-compose up
 ```
 
