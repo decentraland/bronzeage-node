@@ -5,8 +5,6 @@ services:
     build:
       dockerfile: "./Dockerfile"
       context: "."
-    volumes:
-      - "./db:/data"
     environment:
       NODE_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
     ports:
