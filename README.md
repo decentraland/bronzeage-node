@@ -53,7 +53,7 @@ parcel, adjacent (with 4-connectivity) to a previously mined parcel.
 
 ### RPC API
 
-There's two new JSON RPC endpoints that facilitate creation and querying of land
+There are some new JSON RPC endpoints that facilitate creation and querying of land
 content:
 
 * **gettile(x, y)**: fetches the torrent info hash of a tile's content.
@@ -65,11 +65,9 @@ transaction updating the torrent info hash of one of your tiles.
 * **dumpblockchain(onlyControlled=false)**: lists all tiles in the blockchain and
 returns information about them. Be careful! It may take a long time to process.
 
-#### Listing your controlled tiles:
+#### Listing and drawing a map of your controlled tiles:
 
-Use the following command in bash to list all your tiles. Replace `node` with the
-IP of a node you control, `8301` with the httpPort of your node, and `bitcoindrpc`
-and `MYPASSWORD` with the corresponding configuration of your node:
+Use the following command in bash to list all your tiles.
 
     ./bin/cli --apikey=$YOUR_RPC_APIKEY rpc dumpblockchain true | node scripts/list.js
 
