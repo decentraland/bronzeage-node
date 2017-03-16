@@ -62,6 +62,21 @@ content:
 network using [WebTorrent](https://github.com/feross/webtorrent) and creates a
 transaction updating the torrent info hash of one of your tiles.
 
+* **dumpblockchain(onlyControlled=false)**: lists all tiles in the blockchain and
+returns information about them. Be careful! It may take a long time to process.
+
+#### Listing your controlled tiles:
+
+Use the following command in bash to list all your tiles. Replace `node` with the
+IP of a node you control, `8301` with the httpPort of your node, and `bitcoindrpc`
+and `MYPASSWORD` with the corresponding configuration of your node:
+
+    curl node:8301/  -H "Authorization: Basic `echo -n "bitcoindrpc:MYPASSWORD" | base64`" -d '{"method":"dumpblockchain","params":["true"],"id":0}' | node scripts/list.js
+
+Use this to render a HTML visualization of all tiles in Decentraland:
+
+    curl node:8301/  -H "Authorization: Basic `echo -n "bitcoindrpc:MYPASSWORD" | base64`" -d '{"method":"dumpblockchain","params":[],"id":0}' | node scripts/plot.js
+
 ### Land content server
 
 After each valid new block in the main chain, the node downloads from the
