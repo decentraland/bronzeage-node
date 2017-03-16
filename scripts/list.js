@@ -1,9 +1,7 @@
 var fs = require('fs')
 
 var c = fs.readFileSync('/dev/stdin').toString()
-var d = JSON.parse(c)
-var e = d.result
-var f = JSON.parse(e)
+var f = JSON.parse(c)
 
 f.sort(function(a, b) {
   return Math.abs(a.x) + Math.abs(a.y) - (Math.abs(b.x) + Math.abs(b.y))

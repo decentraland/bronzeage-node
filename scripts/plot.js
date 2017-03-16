@@ -2,9 +2,7 @@ var fs = require('fs')
 var randomcolor = require('randomcolor')
 
 var c = fs.readFileSync('/dev/stdin').toString()
-var d = JSON.parse(c)
-var e = d.result
-var f = JSON.parse(e)
+var f = JSON.parse(c)
 
 var colormap = {}
 
