@@ -71,11 +71,11 @@ Use the following command in bash to list all your tiles. Replace `node` with th
 IP of a node you control, `8301` with the httpPort of your node, and `bitcoindrpc`
 and `MYPASSWORD` with the corresponding configuration of your node:
 
-    curl node:8301/  -H "Authorization: Basic `echo -n "bitcoindrpc:MYPASSWORD" | base64`" -d '{"method":"dumpblockchain","params":["true"],"id":0}' | node scripts/list.js
+    ./bin/cli --apikey=$YOUR_RPC_APIKEY rpc dumpblockchain true | node scripts/list.js
 
 Use this to render a HTML visualization of all tiles in Decentraland:
 
-    curl node:8301/  -H "Authorization: Basic `echo -n "bitcoindrpc:MYPASSWORD" | base64`" -d '{"method":"dumpblockchain","params":[],"id":0}' | node scripts/plot.js
+    ./bin/cli --apikey=$YOUR_RPC_APIKEY rpc dumpblockchain | node scripts/plot.js
 
 ### Land content server
 
