@@ -91,7 +91,7 @@ the parcel at `(x, y)` is served at `GET /tile/x.y.lnd`
 There's two options for installing running a node: [with docker](#run-a-node-using-docker) and [without docker](#run-a-node-manually).
 ### Run a node manually
 1. clone the repo:
-`git clone https://github.com/decentraland/bronzeage-node.git`
+`git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
 2. Install NodeJS:
 See https://nodejs.org/en/.
 3. install dependencies:
