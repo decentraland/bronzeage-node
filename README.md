@@ -71,11 +71,11 @@ returns information about them. Be careful! It may take a long time to process.
 
 Use the following command in bash to list all your tiles.
 
-    ./bin/cli --apikey=$YOUR_RPC_APIKEY rpc dumpblockchain true | node scripts/list.js
+    ./bin/cli --apikey=$RPC_API_KEY rpc dumpblockchain true | node scripts/list.js
 
 Use this to render a HTML visualization of all tiles in Decentraland:
 
-    ./bin/cli --apikey=$YOUR_RPC_APIKEY rpc dumpblockchain | node scripts/plot.js
+    ./bin/cli --apikey=$RPC_API_KEY rpc dumpblockchain | node scripts/plot.js
 
 ### Land content server
 
@@ -87,7 +87,7 @@ By default, the node serves a static web server at port 9301 with the latest
 scene content files for each mined parcel of land. The land content file for
 the parcel at `(x, y)` is served at `GET /tile/x.y.lnd`
 
-## Run a node 
+## Run a node
 There's two options for installing running a node: [with docker](#run-a-node-using-docker) and [without docker](#run-a-node-manually).
 ### Run a node manually
 1. clone the repo:
