@@ -8,7 +8,7 @@ services:
     volumes:
       - "./db:/data"
     environment:
-      NODE_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
+      RPC_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
     ports:
       - "2301:2301"
       - "8301:8301"
