@@ -6,7 +6,7 @@ services:
       dockerfile: "./Dockerfile"
       context: "."
     volumes:
-      - "./db:/data"
+      - "./db:/decentraland/data"
     environment:
       RPC_API_KEY: "38Dpwnjsj2zn3QETJ6GKv8YkHomA"
     ports:
