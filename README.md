@@ -81,11 +81,11 @@ Use this to render a HTML visualization of all tiles in Decentraland:
 
 After each valid new block in the main chain, the node downloads from the
 torrent network the updated land content for each transaction in the block,
-effectively maintaining a parcel to scene index.
+effectively maintaining a tile to scene index.
 
 By default, the node serves a static web server at port 9301 with the latest
-scene content files for each mined parcel of land. The land content file for
-the parcel at `(x, y)` is served at `GET /tile/x.y.lnd`
+scene content files for each mined tile of land. The land content file for
+the tile at `(x, y)` is served at `GET /tile/x.y.lnd`
 
 ## Run a node
 There's two options for installing running a node: [with docker](#run-a-node-using-docker) and [without docker](#run-a-node-manually).
