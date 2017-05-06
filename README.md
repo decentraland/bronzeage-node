@@ -56,7 +56,7 @@ adjacent (with 4-connectivity) to a previously mined tile.
 ### RPC API
 
 There are some new JSON RPC endpoints that facilitate creation and querying of land
-content:
+content. We also list some useful RPC endpoints, inherited from Bitcoin. 
 
 * **gettile(x, y)**: fetches the torrent info hash of a tile's content.
 
@@ -66,6 +66,22 @@ transaction updating the torrent info hash of one of your tiles.
 
 * **dumpblockchain(onlyControlled=false)**: lists all tiles in the blockchain and
 returns information about them. Be careful! It may take a long time to process.
+
+* **transfertile(x, y, dest)**: Transfers tile at (x,y) to address `dest`. You must of
+course own the tile to be able to transfer it. Returns the raw hex of the transfer transaction.
+Note that the transaction will be automatically broadcasted to the network, no need to send it
+manually.
+Example:
+```
+./bin/cli --apikey=$RPC_API_KEY rpc transfertile 0 -1 TeaZxyQATonFFFLCXZMydUfGGUWwBsg9Je
+```
+
+* **getaccountaddress(account)**: Gets address for `account`. 
+To get your main decentraland address: 
+```
+$ ./bin/cli --apikey=$RPC_API_KEY rpc getaccountaddress 0
+TeaZxyQATonFFFLCXZMydUfGGUWwBsg9Je
+```
 
 #### Listing and drawing a map of your controlled tiles:
 
