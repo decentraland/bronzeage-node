@@ -108,8 +108,8 @@ There's two options for installing running a node: [with docker](#run-a-node-usi
 ### Run a node manually
 1. clone the repo:
 `git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
-2. Install NodeJS:
-See https://nodejs.org/en/.
+2. Install [NodeJS](https://nodejs.org/en/).
+The current decentraland node requires NodeJS v7.4.0 or higher. See [nvm](http://nvm.sh) for version management.
 3. install dependencies:
 `apt-get update && apt-get install -y --no-install-recommends xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev`
 4. install npm modules
