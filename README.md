@@ -83,6 +83,8 @@ $ ./bin/cli --apikey=$RPC_API_KEY rpc getaccountaddress 0
 TeaZxyQATonFFFLCXZMydUfGGUWwBsg9Je
 ```
 
+For more info on how to use the command line interface, check [this bcoin wiki page](https://github.com/bcoin-org/bcoin/wiki/CLI) (decentraland-node is a fork of bcoin, so most functionality is the same).
+
 #### Listing and drawing a map of your controlled tiles:
 
 Use the following command in bash to list all your tiles.
