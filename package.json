@@ -3,19 +3,10 @@
   "version": "1.0.0-alpha",
   "description": "Full node for Decentraland, a blockchain-based virtual reality world.",
   "main": "./lib/decentraland.js",
-  "bin": {
-    "decentraland-node": "./bin/node",
-    "decentraland-spvnode": "./bin/spvnode",
-    "decentraland-cli": "./bin/cli",
-    "decentraland": "./bin/decentraland"
-  },
+  "bin": "./bin/start",
   "preferGlobal": true,
   "scripts": {
-    "test": "mocha --reporter spec test/*-test.js",
-    "browserify": "browserify --im -o browser/decentraland.js lib/decentraland.js && browserify --im -o browser/decentraland-master.js lib/workers/master.js",
-    "uglify": "uglifyjs -m -o browser/decentraland.min.js browser/decentraland.js && uglifyjs -m -o browser/decentraland-master.min.js browser/decentraland-master.js",
-    "clean": "rm browser/decentraland.js browser/decentraland.min.js browser/decentraland-master.js browser/decentraland-master.min.js",
-    "lint": "jshint lib/ || exit 0"
+    "start": "node bin/node --fast --port=2301 --prefix=./data --httpport=8301 --n=testnet --apikey=3TR6BveE2Qpu8ytMZ7AMqmALZor3dY --contentPort=9301"
   },
   "repository": "git://github.com/decentraland/decentraland-node.git",
   "keywords": [
@@ -24,11 +15,17 @@
     "blockchain",
     "wallet"
   ],
-  "author": "Manuel Araoz <manuelaraoz@gmail.com>",
+  "author": "The Decentraland Team",
   "contributors": [
-    "Fedor Indutny <fedor@indutny.com> (https://github.com/indutny)",
-    "Christopher Jeffrey <chjjeffrey@gmail.com> (https://github.com/chjj)",
-    "Yemel Jardi <angel.jardi@gmail.com> (https://github.com/yemeljardi)"
+    "Manuel Araoz <manuelaraoz@gmail.com> (https://github.com/maraoz)",
+    "Esteban Ordano <eordano@gmail.com> (https://github.com/eordano)",
+    "Yemel Jardi <angel.jardi@gmail.com> (https://github.com/yemeljardi)",
+    "Dario Sneidermanis (https://github.com/esneider)",
+    "Kyllian Le Borgne Roperch (https://github.com/HPrivakos)",
+    "Martin Triay (https://github.com/martriay)",
+    "Kostas (https://github.com/vrinek)",
+    "3swordjack (https://github.com/3swordjack)",
+    "Mason Jeffers (https://github.com/masonjeffers)"
   ],
   "license": "MIT",
   "bugs": {
