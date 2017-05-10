@@ -45,12 +45,14 @@
     "elliptic": "6.3.2",
     "express": "^4.14.0",
     "install": "^0.8.4",
+    "isomorphic-fetch": "^2.2.1",
     "leveldown": "^1.5.0",
     "mkdirp": "^0.5.1",
     "npm": "^4.0.5",
     "parse-torrent": "^5.8.2",
     "webtorrent": "^0.98.0",
-    "webtorrent-hybrid": "^1.0.5"
+    "webtorrent-hybrid": "^1.0.5",
+    "whatwg-fetch": "^2.0.3"
   },
   "optionalDependencies": {
     "bcoin-native": "0.0.12",
