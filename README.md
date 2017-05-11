@@ -140,7 +140,7 @@ information.
 
 ## Community
 
-Join us on [Slack](https://rauchg-slackin-ueglzmcnsv.now.sh/)!
+Join us on [Slack](https://slack.decentraland.org/)!
 
 We're on [Twitter](https://twitter.com/decentraland) too.
 
