@@ -27,6 +27,8 @@ const resultJson = e => getJson(e).then(getResult)
 const logIt = e => { console.log(e); return e }
 const makeRpc = (name, params) => rpc(name, params).then(resultJson)
 
+const logError = (err) => console.log(err, err.stack)
+
 const getHashByHeight = height => makeRpc('getblockhash', [height])
 const getBlock = hash => makeRpc('getblock', [hash])
 const getTransaction = hash => makeRequest(`tx/${hash}`).then(getJson)
@@ -134,4 +136,5 @@ module.exports = {
   getCurrentHeight,
   getFirstAddress,
   getMinerAddress,
+  logError
 }
