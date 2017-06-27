@@ -107,7 +107,8 @@ the tile at `(x, y)` is served at `GET /tile/x.y.lnd`
 
 ## Run a node
 There's two options for installing running a node: [with docker](#run-a-node-using-docker) and [without docker](#run-a-node-manually).
-### Run a node manually
+
+### Run a node manually on Linux
 1. clone the repo:
 `git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
 2. Install [NodeJS](https://nodejs.org/en/).
@@ -118,6 +119,19 @@ The current decentraland node requires NodeJS v7.4.0 or higher. See [nvm](http:/
 `npm install`
 5. Run the node!
 `./bin/start`
+
+### Run a node manually on Windows
+1. clone the repo:
+`git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
+1. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0 or higher.
+1. Install npm modules:
+    * `npm install`
+    * `npm install bn.js elliptic mkdirp webtorrent-hybrid create-torrent parse-torrent socket.io-client leveldown express cors`
+1. Run the node!
+`bin\start.bat`
+
+You may use the CLI by running it with node:
+`node bin\cli [args]`
 
 ### Run a node using Docker
 Make sure you have [Docker
