@@ -120,15 +120,16 @@ The current decentraland node requires NodeJS v7.4.0 or higher. See [nvm](http:/
 5. Run the node!
 `./bin/start`
 
-### Run a node manually on Windows
+### Run a node manually on Windows and Mac
 1. clone the repo:
 `git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
-1. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0 or higher.
-1. Install npm modules:
+2. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0 or higher.
+3. Install npm modules:
     * `npm install`
     * `npm install bn.js elliptic mkdirp webtorrent-hybrid create-torrent parse-torrent socket.io-client leveldown express cors`
-1. Run the node!
-`bin\start.bat`
+4. Run the node!
+	* Windows: `bin\start.bat`
+	* Mac: `./bin/start`
 
 You may use the CLI by running it with node:
 `node bin\cli [args]`
