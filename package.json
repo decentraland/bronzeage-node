@@ -41,6 +41,7 @@
     "create-torrent": "^3.28.0",
     "elliptic": "6.3.2",
     "express": "^4.14.0",
+    "get-stdin": "^5.0.1",
     "install": "^0.8.4",
     "isomorphic-fetch": "^2.2.1",
     "leveldown": "^1.5.0",
