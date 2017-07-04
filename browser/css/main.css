@@ -39,6 +39,10 @@ a {
   text-decoration: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .icon {
   background-image: url("https://decentraland.org/images/icons.svg");
   vertical-align: top;
@@ -59,6 +63,16 @@ a {
 .tiles, .rpc {
   width: 100%;
   padding: 10px 0;
+}
+
+.tiles ul {
+  padding-left: 20px;
+  max-height: 400px;
+  overflow: auto;
+}
+.tiles li {
+  margin-bottom: 5px;
+  word-break: break-all;
 }
 
 .rpc .input {
@@ -87,9 +101,15 @@ a {
 }
 
 @media (min-width: 768px) {
+  .tiles {
+    width: 49%;
+  }
+  .rpc {
+    width: 47%;
+  }
+
   .tiles, .rpc {
     padding: 0;
-    width: 47%;
     float: left;
   }
 
