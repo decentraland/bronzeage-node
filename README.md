@@ -56,7 +56,7 @@ adjacent (with 4-connectivity) to a previously mined tile.
 ### RPC API
 
 There are some new JSON RPC endpoints that facilitate creation and querying of land
-content. We also list some useful RPC endpoints, inherited from Bitcoin. 
+content. We also list some useful RPC endpoints, inherited from Bitcoin.
 
 * **gettile(x, y)**: fetches the torrent info hash of a tile's content.
 
@@ -76,8 +76,8 @@ Example:
 ./bin/cli --apikey=$RPC_API_KEY rpc transfertile 0 -1 TeaZxyQATonFFFLCXZMydUfGGUWwBsg9Je
 ```
 
-* **getaccountaddress(account)**: Gets address for `account`. 
-To get your main decentraland address: 
+* **getaccountaddress(account)**: Gets address for `account`.
+To get your main decentraland address:
 ```
 $ ./bin/cli --apikey=$RPC_API_KEY rpc getaccountaddress 0
 TeaZxyQATonFFFLCXZMydUfGGUWwBsg9Je
@@ -114,7 +114,7 @@ There's two options for installing running a node: [with docker](#run-a-node-usi
 2. Install [NodeJS](https://nodejs.org/en/).
 The current decentraland node requires NodeJS v7.4.0 or higher. See [nvm](http://nvm.sh) for version management.
 3. install dependencies:
-`apt-get update && apt-get install -y --no-install-recommends xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev`
+`apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev`
 4. install npm modules
 `npm install`
 5. Run the node!
@@ -136,7 +136,7 @@ You may use the CLI by running it with node:
 
 ### Run a node using Docker
 Make sure you have [Docker
-installed](https://docs.docker.com/engine/installation/), and run (**note: 
+installed](https://docs.docker.com/engine/installation/), and run (**note:
 you might need to prepend `sudo` to these commands on Linux systems**):
 
 ```
