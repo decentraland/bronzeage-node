@@ -20,14 +20,14 @@
       <div class="tiles">
         <h2>Tiles <span id="js-tile-count"></span></h2>
         <div id="js-loading-tiles">Loading current tiles...</div>
-        <ul id="js-tiles"></ul>
+        <ul id="js-tiles" class="scrolleable"></ul>
       </div>
 
       <div class="rpc">
         <h2>RPC</h2>
-        <textarea name="rpc-result" id="js-rpc-result" class="input result" cols="25" rows="10" placeholder="RPC result goes here" readonly></textarea>
+        <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
         <br />
-        <form method="POST" action="/rpccall">
+        <form id="js-rpc-form" method="POST" action="/rpccall">
           <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. getblockchaininfo)">
           <input type="submit" class="input send" value="SEND">
         </form>

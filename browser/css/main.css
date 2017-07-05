@@ -60,6 +60,11 @@ a {
   padding: 30px 0 20px;
 }
 
+.scrolleable {
+  max-height: 400px;
+  overflow: auto;
+}
+
 .tiles, .rpc {
   width: 100%;
   padding: 10px 0;
@@ -67,8 +72,6 @@ a {
 
 .tiles ul {
   padding-left: 20px;
-  max-height: 400px;
-  overflow: auto;
 }
 .tiles li {
   margin-bottom: 5px;
@@ -86,6 +89,7 @@ a {
 .rpc .result {
   width: 100%;
   margin-bottom: 15px;
+  display: block;
 }
 
 .rpc .cmd {
@@ -98,6 +102,9 @@ a {
   float: right;
   background-color: #30D7A9;
   color: #FFF;
+}
+.rpc .send[disabled] {
+  background-color: #CCC;
 }
 
 @media (min-width: 768px) {
