@@ -99,4 +99,5 @@ server.on('error', function(err) {
 
 process.stdout.write('Running server on port ' + PORT)
 if (! CONFIG.serverport) process.stdout.write('. You can change this using --serverport PORT')
+console.log('')
 server.listen(PORT);

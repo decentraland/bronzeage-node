@@ -1,26 +1,13 @@
 ;(function() {
   'use strict';
 
-  fetch('/gettiles').then(function(response) {
-    if (response.status === 200) {
-      response.json().then(showTiles);
-    } else {
-      response.text().then(catchError);
+  fetchJSON('/gettiles').then(showTiles)
+
+  RPCCall('getminerinfo').then(function(minerinfo) {
+    if (minerinfo.stats.hashrate) {
+      getElementById('mining-speed').innerHTML = 'Mining speed: ' + minerinfo.stats.hashrate + 'khs';
     }
   })
-  .catch(catchError);
-
-
-  fetch('/rpccall?cmd=getminerinfo', { method: 'POST' }).then(function(response) {
-    if (response.status === 200) {
-      response.json().then(function(minerinfo) {
-        getElementById('mining-speed').innerHTML = 'Mining speed: ' + minerinfo.stats.hashrate + 'khs';
-      });
-    } else {
-      response.text().then(catchError);
-    }
-  })
-  .catch(catchError);
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
@@ -30,17 +17,11 @@
       this.reset();
       submitButton.disabled = true;
 
-      fetch('/rpccall?cmd=' + cmd, { method: 'POST' }).then(function(response) {
-        if (response.status === 200) {
-          response.json().then(showRPCResponse);
-        } else {
-          response.text().then(catchError);
-        }
-      })
-      .catch(catchError)
-      .then(function() {
-        submitButton.disabled = false;
-      });
+      RPCCall(cmd)
+        .then(showRPCResponse)
+        .then(function() {
+          submitButton.disabled = false;
+        });
 
       event.preventDefault();
     }, true);
@@ -49,22 +30,39 @@
   // --------------------------------------------------------
   // Handlers
 
+  function RPCCall(cmd) {
+    return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' })
+  }
+
+  function fetchJSON(url, options) {
+    return new Promise(function(resolve, reject) {
+      fetch(url, options).then(function(response) {
+        if (response.status === 200) {
+          response.json().then(resolve);
+        } else {
+          response.text().then(catchError);
+        }
+      })
+      .catch(catchError)
+    })
+  }
+
   function showTiles(tiles) {
-    var baseURL = "https://decentraland.org/app/?";
     var tilesHTML = '';
-
+    var EMPTY_TILE_CONTENT = new Array(63).fill('0').join('');
+    tiles[1].content = EMPTY_TILE_CONTENT + 'a'
+    // Concat strings here instead of using a `.map().join()` to avoid yet another iteration
     tiles
-      .sort(function(a, b) { return Math.abs(a.x) - Math.abs(b.x) })
+      .sort(contentSorter)
       .forEach(function(tile) {
-        // Concat here instead of using a `.join()` to avoid yet another iteration
-        var url = baseURL + 'x=' + tile.x + '&y=' + tile.y;
-        var content = '(' + tile.x + ', ' + tile.y + ') ' + tile.content;
+        var coordinates = '(' + tile.x + ', ' + tile.y + ') ';
+        var content = hasContent(tile) ? 'Click to see content' : 'Empty';
 
-        tilesHTML += '<li><a href="' + url + '" target="_blank">' + content + '<a></li>';
+        tilesHTML += '<li><a href="' + getTileURL(tile) + '" target="_blank">' + coordinates + content + '<a></li>';
       });
 
     getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = '(' + tiles.length + ').';
+    getElementById('tile-count').innerHTML = tiles.length;
     getElementById('tiles').innerHTML = tilesHTML;
   }
 
@@ -74,6 +72,20 @@
 
   function catchError(error) {
     console.log('[ERROR]', error);
+  }
+
+  function contentSorter(tileA, tileB) {
+    if(tileA.content > tileB.content) return -1;
+    if(tileA.content < tileB.content) return 1;
+    return 0;
+  }
+
+  function hasContent(tile) {
+    return tile.content.replace(/0/g, '');
+  }
+
+  function getTileURL(tile) {
+    return 'https://decentraland.org/app/?x=' + tile.x + '&y=' + tile.y;
   }
 
   function getElementById(id) {
