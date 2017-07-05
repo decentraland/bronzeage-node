@@ -8,31 +8,41 @@
       response.text().then(catchError);
     }
   })
-  .catch(catchError)
+  .catch(catchError);
+
+
+  fetch('/rpccall?cmd=getminerinfo', { method: 'POST' }).then(function(response) {
+    if (response.status === 200) {
+      response.json().then(function(minerinfo) {
+        getElementById('mining-speed').innerHTML = 'Mining speed: ' + minerinfo.stats.hashrate + 'khs';
+      });
+    } else {
+      response.text().then(catchError);
+    }
+  })
+  .catch(catchError);
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
-      var submitButton = this.elements[1]
-      var cmd = new FormData(this).get('cmd')
+      var submitButton = this.elements[1];
+      var cmd = new FormData(this).get('cmd');
 
-      this.reset()
-      submitButton.disabled = true
+      this.reset();
+      submitButton.disabled = true;
 
-      fetch('/rpccall?cmd=' + cmd, {
-        method: 'POST'
-      }).then(function(response) {
+      fetch('/rpccall?cmd=' + cmd, { method: 'POST' }).then(function(response) {
         if (response.status === 200) {
-          response.json().then(showRPCResponse)
+          response.json().then(showRPCResponse);
         } else {
           response.text().then(catchError);
         }
       })
       .catch(catchError)
       .then(function() {
-        submitButton.disabled = false
-      })
+        submitButton.disabled = false;
+      });
 
-      event.preventDefault()
+      event.preventDefault();
     }, true);
 
 
@@ -54,19 +64,19 @@
       });
 
     getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = '(' + tiles.length + ')';
+    getElementById('tile-count').innerHTML = '(' + tiles.length + ').';
     getElementById('tiles').innerHTML = tilesHTML;
   }
 
   function showRPCResponse(response) {
-    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2)
+    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
   }
 
   function catchError(error) {
-    console.log('[ERROR]', error)
+    console.log('[ERROR]', error);
   }
 
   function getElementById(id) {
-    return document.getElementById('js-' + id)
+    return document.getElementById('js-' + id);
   }
 })();

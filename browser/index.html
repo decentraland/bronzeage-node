@@ -13,12 +13,12 @@
   <body>
     <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
     <h2>A virtual world that runs on open standards</h2>
-    <h4>Welcome. You're running a node, here are your current tiles.
+    <h4>Welcome. From this page you will be able to manage your node and see your mined tiles.
     You can send rpc calls to the node and see the result here</h4>
 
     <div class="content">
       <div class="tiles">
-        <h2>Tiles <span id="js-tile-count"></span></h2>
+        <h2>Tiles <span id="js-tile-count"></span> <span id="js-mining-speed"></span></h2>
         <div id="js-loading-tiles">Loading current tiles...</div>
         <ul id="js-tiles" class="scrolleable"></ul>
       </div>
@@ -28,7 +28,7 @@
         <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
         <br />
         <form id="js-rpc-form" method="POST" action="/rpccall">
-          <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. getblockchaininfo)">
+          <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
           <input type="submit" class="input send" value="SEND">
         </form>
       </div>
