@@ -1,15 +1,23 @@
 'use strict';
 
 var HTTPBase = require('../lib/http/base');
-var co = require('../lib/utils/co');
 var Client = require('../lib/http/client');
+var config = require('../lib/node/config');
+var co = require('../lib/utils/co');
 var fs = require('fs');
 
-var PORT = parseInt(process.argv[2], 10) || 8080;
-var API_KEY = 'dland-key-256';
+console.log('Starting Decentraland server!')
+console.log('Remember that it supports the same flags as the node (via ENV or argv)\n')
+
+var CONFIG = config({ config: true, arg: true, env: true }).data;
+var PORT = CONFIG.serverport || 8080
 
 var server = new HTTPBase();
-var api = new API(API_KEY);
+
+if (! CONFIG.apikey) console.warn('[WARN] No apikey supplied, you can explicitly set one using `--apikey YOUR_API_KEY`')
+var client = new Client({
+  apiKey: CONFIG.apikey
+});
 
 
 // --------------------------------------------------------
@@ -58,7 +66,7 @@ server.post('/rpccall', co(function* (req, res, send, next) {
 
     console.log('Executing RPC call', method, params)
 
-    var result = yield api.rpc(method, params);
+    var result = yield client.rpc.call(method, params);
     send(200, result, 'json');
 
   } catch(error) {
@@ -71,7 +79,7 @@ server.post('/rpccall', co(function* (req, res, send, next) {
 server.get('/gettiles', co(function* gettiles(req, res, send, next) {
   try {
     console.log('Getting tiles')
-    var tiles = yield api.rpc('dumpblockchain', [ true ]); // the [ true ] here means only controlled tiles
+    var tiles = yield client.rpc.call('dumpblockchain', [ true ]); // [ true ] here means "only controlled tiles"
     send(200, tiles, 'json');
 
   } catch(error) {
@@ -89,24 +97,6 @@ server.on('error', function(err) {
   console.error(err.stack.toString());
 });
 
-console.log('Running server on port ' + PORT)
+process.stdout.write('Running server on port ' + PORT)
+if (! CONFIG.serverport) process.stdout.write('. You can change this using --serverport PORT')
 server.listen(PORT);
-
-
-// --------------------------------------------------------
-// Utils
-
-function API(apiKey) {
-  this.config = {
-    apiKey: apiKey
-  };
-
-  this.client = new Client({
-    apiKey: this.config.apiKey
-  });
-}
-
-API.prototype.rpc = co(function* rpc(method, params) {
-  return yield this.client.rpc.call(method, params);
-});
-
