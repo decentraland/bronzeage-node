@@ -78,6 +78,11 @@ a {
   word-break: break-all;
 }
 
+.rpc .form {
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
 .rpc .input {
   padding: 10px;
   font-size: 16px;
