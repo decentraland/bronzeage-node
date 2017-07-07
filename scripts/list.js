@@ -1,15 +1,16 @@
-var fs = require('fs')
+const getStdin = require('get-stdin');
 
-var c = fs.readFileSync('/dev/stdin').toString()
-var f = JSON.parse(c)
+getStdin().then(c => {
+  var f = JSON.parse(c)
 
-f.sort(function(a, b) {
-  return Math.abs(a.x) + Math.abs(a.y) - (Math.abs(b.x) + Math.abs(b.y))
-})
+  f.sort(function(a, b) {
+    return Math.abs(a.x) + Math.abs(a.y) - (Math.abs(b.x) + Math.abs(b.y))
+  })
 
-console.log('Controlled tiles:')
-for (let i in f) {
-  const y = f[i]
-  console.log(y.x, y.y, y.content)
-}
-console.log(f.length)
+  console.log('Controlled tiles:')
+  for (let i in f) {
+    const y = f[i]
+    console.log(y.x, y.y, y.content)
+  }
+  console.log(f.length)
+});
