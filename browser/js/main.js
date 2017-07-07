@@ -1,12 +1,9 @@
 ;(function() {
   'use strict';
 
-  fetchJSON('/gettiles').then(showTiles)
+  fetchCurrentStats();
 
-  Promise.all([
-    RPCCall('getblockchaininfo'),
-    RPCCall('getminerinfo')
-  ]).then(showCurrentState)
+  fetchJSON('/gettiles').then(showTiles);
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
@@ -25,37 +22,70 @@
       event.preventDefault();
     }, true);
 
+  getElementById('node-stats')
+    .addEventListener('click', function(event) {
+      // Because the start/stop buttons are added dinamically,
+      // we hook the click event to the parent and theck for the desired id
+      var command = {
+        'js-start-node': 'startmining',
+        'js-stop-node': 'stopmining'
+      }[event.target.id];
+
+      if (command) {
+        getElementById('node-stats').innerHTML = 'Running...';
+        RPCCall(command).then(fetchCurrentStats);
+      }
+    }, true);
+
 
   // --------------------------------------------------------
   // Handlers
 
-  function showTiles(tiles) {
-    var tilesHTML = tiles
-      .sort(contentSorter)
-      .map(function(tile) {
-        return renderTemplate('tiles', {
-          x  : tile.x,
-          y  : tile.y,
-          url: getTileURL(tile),
-          content: hasContent(tile) ? 'Click to see content' : 'Empty'
-        });
-      })
-      .join('');
-
-    getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = tiles.length;
-    getElementById('tiles').innerHTML = tilesHTML;
+  function fetchCurrentStats() {
+    Promise.all([
+      RPCCall('getblockchaininfo'),
+      RPCCall('getminerinfo')
+    ]).then(showCurrentState);
   }
 
   function showCurrentState(responses) {
-    var blockchaininfo = responses[0]
-    var minerinfo = responses[1]
+    var blockchaininfo = responses[0];
+    var minerinfo = responses[1];
 
     getElementById('node-stats').innerHTML = renderTemplate('node-stats', {
       running   : minerinfo.running,
       stats     : minerinfo.stats,
       blockchain: blockchaininfo
     });
+  }
+
+  function showTiles(tiles) {
+    var counts = { content: 0, empty: 0, total: tiles.length };
+    var tilesHTML = '';
+
+    tiles.sort(contentSorter);
+    tiles.forEach(function(tile) {
+      var content = '';
+
+      if (hasContent(tile)) {
+        content = 'Click to see content';
+        counts.content += 1;
+      } else {
+        content = 'Empty';
+        counts.empty += 1;
+      }
+
+      tilesHTML += renderTemplate('tiles', {
+        x  : tile.x,
+        y  : tile.y,
+        url: getTileURL(tile),
+        content: content
+      });
+    });
+
+    getElementById('loading-tiles').className = 'hidden';
+    getElementById('tile-count').innerHTML = renderTemplate('counts', counts)
+    getElementById('tiles').innerHTML = tilesHTML;
   }
 
   function showRPCResponse(response) {
@@ -67,7 +97,7 @@
   // Utils
 
   function RPCCall(cmd) {
-    return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' })
+    return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' });
   }
 
   function fetchJSON(url, options) {
@@ -79,8 +109,8 @@
           response.text().then(catchError);
         }
       })
-      .catch(catchError)
-    })
+      .catch(catchError);
+    });
   }
 
   function showTiles(tiles) {

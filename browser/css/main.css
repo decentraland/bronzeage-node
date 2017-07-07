@@ -59,10 +59,14 @@ a, .link {
   background-position: 0 0;
 }
 
+.header {
+  border-bottom: 1px solid #CCC;
+}
+
 .content {
   width: 100%;
   overflow: hidden;
-  padding: 30px 0 20px;
+  padding: 25px 0 10px;
 }
 
 .scrolleable {

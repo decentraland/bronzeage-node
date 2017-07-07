@@ -65,9 +65,11 @@ server.post('/rpccall', co(function* (req, res, send, next) {
       }
     })
 
-    console.log('Executing RPC call', method, params)
+    console.log('Executing RPC call', method, 'with params', params)
 
     var result = yield client.rpc.call(method, params);
+    if (result && result.error) throw new Error(result.error)
+
     send(200, result, 'json');
 
   } catch(error) {

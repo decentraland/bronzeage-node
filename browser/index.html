@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
-    <h2>A virtual world that runs on open standards</h2>
-    <h4>Welcome. From this page you will be able to manage your node and see your mined tiles.
-    You can send rpc calls to the node and see the result here</h4>
+    <div class="header">
+      <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
+      <h2>A virtual world that runs on open standards</h2>
+      <h4>Welcome. From this page you will be able to manage your node and see your mined tiles.
+      You can send rpc calls to the node and see the result here</h4>
+    </div>
 
     <div class="content">
       <div id="js-node-stats" class="node-stats">
@@ -23,7 +25,8 @@
     </div>
     <div class="content">
       <div class="tiles">
-        <h2>Tiles (<span id="js-tile-count">...</span>)</h2>
+        <h2>Tiles</h2>
+        <span id="js-tile-count"></span>
         <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
         <ul id="js-tiles" class="scrolleable"></ul>
       </div>
@@ -37,6 +40,10 @@
         <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
       </div>
     </div>
+
+    <template id="js-counts-template">
+      You have {{=content}} tiles with content and {{=empty}} empty ones for a total of {{=total}} tiles.
+    </template>
 
     <template id="js-node-stats-template">
       Your node is currently
