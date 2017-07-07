@@ -3,11 +3,10 @@
 
   fetchJSON('/gettiles').then(showTiles)
 
-  RPCCall('getminerinfo').then(function(minerinfo) {
-    if (minerinfo.stats.hashrate) {
-      getElementById('mining-speed').innerHTML = 'Mining speed: ' + minerinfo.stats.hashrate + 'khs';
-    }
-  })
+  Promise.all([
+    RPCCall('getblockchaininfo'),
+    RPCCall('getminerinfo')
+  ]).then(showCurrentState)
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
@@ -29,6 +28,43 @@
 
   // --------------------------------------------------------
   // Handlers
+
+  function showTiles(tiles) {
+    var tilesHTML = tiles
+      .sort(contentSorter)
+      .map(function(tile) {
+        return renderTemplate('tiles', {
+          x  : tile.x,
+          y  : tile.y,
+          url: getTileURL(tile),
+          content: hasContent(tile) ? 'Click to see content' : 'Empty'
+        });
+      })
+      .join('');
+
+    getElementById('loading-tiles').className = 'hidden';
+    getElementById('tile-count').innerHTML = tiles.length;
+    getElementById('tiles').innerHTML = tilesHTML;
+  }
+
+  function showCurrentState(responses) {
+    var blockchaininfo = responses[0]
+    var minerinfo = responses[1]
+
+    getElementById('node-stats').innerHTML = renderTemplate('node-stats', {
+      running   : minerinfo.running,
+      stats     : minerinfo.stats,
+      blockchain: blockchaininfo
+    });
+  }
+
+  function showRPCResponse(response) {
+    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
+  }
+
+
+  // --------------------------------------------------------
+  // Utils
 
   function RPCCall(cmd) {
     return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' })
@@ -85,6 +121,11 @@
 
   function getTileURL(tile) {
     return 'https://decentraland.org/app/?x=' + tile.x + '&y=' + tile.y;
+  }
+
+  function renderTemplate(name, data) {
+    var template = getElementById(name + '-template').innerHTML;
+    return new t(template).render(data);
   }
 
   function getElementById(id) {

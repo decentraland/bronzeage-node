@@ -9,7 +9,7 @@ body {
   font-weight: 300;
   font-size: 16px;
   background: #F8FAFF;
-  color: #2f2f2f;
+  color: #232323;
   box-sizing: border-box;
 }
 
@@ -37,6 +37,11 @@ small {
 
 a {
   text-decoration: none;
+}
+
+a, .link {
+  color: #1b7d62;
+  cursor: pointer;
 }
 
 .hidden {

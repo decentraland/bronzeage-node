@@ -23,21 +23,22 @@ var client = new Client({
 // --------------------------------------------------------
 // Resources
 
-var index   = fs.readFileSync(__dirname + '/index.html');
-var mainjs  = fs.readFileSync(__dirname + '/js/main.js');
-var maincss = fs.readFileSync(__dirname + '/css/main.css');
+var index      = fs.readFileSync(__dirname + '/index.html');
+var mainjs     = fs.readFileSync(__dirname + '/js/main.js');
+var templatejs = fs.readFileSync(__dirname + '/js/t.min.js');
+var maincss    = fs.readFileSync(__dirname + '/css/main.css');
 
-server.get('/favicon.ico', function(req, res, send, next) {
-  send(404, '', 'text');
-});
-server.get('/', function(req, res, send, next) {
+server.get('/', function(req, res, send) {
   send(200, index, 'html');
 });
-server.get('/js/main.js', function(req, res, send, next) {
+server.get('/js/main.js', function(req, res, send) {
   send(200, mainjs, 'js');
 });
-server.get('/css/main.css', function(req, res, send, next) {
+server.get('/css/main.css', function(req, res, send) {
   send(200, maincss, 'css');
+});
+server.get('/js/t.min.js', function(req, res, send) {
+  send(200, templatejs, 'js');
 });
 
 

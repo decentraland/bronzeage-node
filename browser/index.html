@@ -17,9 +17,13 @@
     You can send rpc calls to the node and see the result here</h4>
 
     <div class="content">
+      <div id="js-node-stats" class="node-stats">
+        Loading stats...
+      </div>
+    </div>
+    <div class="content">
       <div class="tiles">
         <h2>Tiles (<span id="js-tile-count">...</span>)</h2>
-        <span id="js-mining-speed"></span>
         <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
         <ul id="js-tiles" class="scrolleable"></ul>
       </div>
@@ -34,6 +38,20 @@
       </div>
     </div>
 
+    <template id="js-node-stats-template">
+      Your node is currently
+      {{running}}
+        running with a mining speed of {{=stats.hashrate}}khs. The blockchain ({{=blockchain.chain}}) has {{=blockchain.blocks}} blocks and a difficulty of {{=blockchain.difficulty}}. <span id="js-stop-node" class="link">Stop the node</span>
+      {{:running}}
+        stopped. <span id="js-start-node" class="link">Start the node</span>
+      {{/running}}
+    </template>
+
+    <template id="js-tiles-template">
+      <li><a href="{{=url}}" target="_blank">({{=x}}, {{=y}}): {{=content}}</a></li>
+    </template>
+
+    <script src="js/t.min.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
