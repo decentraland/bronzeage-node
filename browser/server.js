@@ -1,53 +1,103 @@
 'use strict';
 
 var HTTPBase = require('../lib/http/base');
-var WSProxy = require('./wsproxy');
+var Client = require('../lib/http/client');
+var config = require('../lib/node/config');
+var co = require('../lib/utils/co');
 var fs = require('fs');
 
+console.log('Starting Decentraland server!')
+console.log('Remember that it supports the same flags as the node (via ENV or argv)\n')
+
+var CONFIG = config({ config: true, arg: true, env: true }).data;
+var PORT = CONFIG.serverport || 8080
+
 var server = new HTTPBase();
-var proxy = new WSProxy({
-  pow: process.argv.indexOf('--pow') !== -1,
-  ports: [8333, 18333, 18444, 28333, 28901]
+
+if (! CONFIG.apikey) console.warn('[WARN] No apikey supplied, you can explicitly set one using `--apikey YOUR_API_KEY`')
+var client = new Client({
+  apiKey: CONFIG.apikey
 });
 
-proxy.on('error', function(err) {
-  console.error(err.stack + '');
-});
 
-var index = fs.readFileSync(__dirname + '/index.html');
-var indexjs = fs.readFileSync(__dirname + '/index.js');
-var decentraland = fs.readFileSync(__dirname + '/decentraland.js');
-var master = fs.readFileSync(__dirname + '/decentraland-master.js');
-var worker = fs.readFileSync(__dirname + '/decentraland-worker.js');
+// --------------------------------------------------------
+// Resources
+
+var index   = fs.readFileSync(__dirname + '/index.html');
+var mainjs  = fs.readFileSync(__dirname + '/js/main.js');
+var maincss = fs.readFileSync(__dirname + '/css/main.css');
 
 server.get('/favicon.ico', function(req, res, send, next) {
   send(404, '', 'text');
 });
-
 server.get('/', function(req, res, send, next) {
   send(200, index, 'html');
 });
-
-server.get('/index.js', function(req, res, send, next) {
-  send(200, indexjs, 'js');
+server.get('/js/main.js', function(req, res, send, next) {
+  send(200, mainjs, 'js');
+});
+server.get('/css/main.css', function(req, res, send, next) {
+  send(200, maincss, 'css');
 });
 
-server.get('/decentraland.js', function(req, res, send, next) {
-  send(200, decentraland, 'js');
-});
 
-server.get('/decentraland-master.js', function(req, res, send, next) {
-  send(200, master, 'js');
-});
+// --------------------------------------------------------
+// API
 
-server.get('/decentraland-worker.js', function(req, res, send, next) {
-  send(200, worker, 'js');
-});
+server.post('/rpccall', co(function* (req, res, send, next) {
+  var cmd = req.query.cmd
+
+  if (! cmd) {
+    var errorMessage = 'Tried to do a rpc call without a cmd (command)'
+    return send(400, errorMessage, 'text');
+  }
+
+  try {
+    var args = cmd.split(' ');
+
+    var method = args.shift();
+    var params = args.map(function(arg) {
+      try {
+        return JSON.parse(arg);
+      } catch (e) {
+        return arg;
+      }
+    })
+
+    console.log('Executing RPC call', method, params)
+
+    var result = yield client.rpc.call(method, params);
+    send(200, result, 'json');
+
+  } catch(error) {
+    var errorMessage = 'Error trying to execute the rpc call ' + cmd + error.message
+    console.log('[ERROR]', errorMessage)
+    send(400, errorMessage, 'text');
+  }
+}));
+
+server.get('/gettiles', co(function* gettiles(req, res, send, next) {
+  try {
+    console.log('Getting tiles')
+    var tiles = yield client.rpc.call('dumpblockchain', [ true ]); // [ true ] here means "only controlled tiles"
+    send(200, tiles, 'json');
+
+  } catch(error) {
+    var errorMessage = 'Error trying to get the tiles. ' + error.message
+    console.log('[ERROR]', errorMessage)
+    send(400, errorMessage, 'text');
+  }
+}));
+
+
+// --------------------------------------------------------
+// Run
 
 server.on('error', function(err) {
-  console.error(err.stack + '');
+  console.error(err.stack.toString());
 });
 
-proxy.attach(server.server);
-
-server.listen(+process.argv[2] || 8080);
+process.stdout.write('Running server on port ' + PORT)
+if (! CONFIG.serverport) process.stdout.write('. You can change this using --serverport PORT')
+console.log('')
+server.listen(PORT);

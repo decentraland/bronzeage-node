@@ -1,0 +1,135 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 90%;
+  padding: 15px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  background: #F8FAFF;
+  color: #2f2f2f;
+  box-sizing: border-box;
+}
+
+h1, h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 3em;
+}
+h2 {
+  font-size: 1.3em;
+}
+h4 {
+  font-weight: 400;
+}
+
+small {
+  margin: 10px;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.icon {
+  background-image: url("https://decentraland.org/images/icons.svg");
+  vertical-align: top;
+  display: inline-block;
+}
+.icon.icon-decentraland {
+  width: 52px;
+  height: 52px;
+  background-position: 0 0;
+}
+
+.content {
+  width: 100%;
+  overflow: hidden;
+  padding: 30px 0 20px;
+}
+
+.scrolleable {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.tiles, .rpc {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.tiles ul {
+  padding-left: 20px;
+}
+.tiles li {
+  margin-bottom: 5px;
+  word-break: break-all;
+}
+
+.tiles .loading {
+  margin-top: 20px;
+}
+
+.rpc .form {
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.rpc .input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.rpc .result {
+  width: 100%;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.rpc .cmd {
+  width: 78%;
+  float: left;
+}
+
+.rpc .send {
+  width: 20%;
+  float: right;
+  background-color: #30D7A9;
+  color: #FFF;
+}
+.rpc .send[disabled] {
+  background-color: #CCC;
+}
+
+@media (min-width: 768px) {
+  .tiles {
+    width: 49%;
+  }
+  .rpc {
+    width: 47%;
+  }
+
+  .tiles, .rpc {
+    padding: 0;
+    float: left;
+  }
+
+  .rpc {
+    margin-left: 10px;
+  }
+}
