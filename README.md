@@ -128,9 +128,7 @@ git clone https://github.com/decentraland/bronzeage-node.git && cd bronzeage-nod
 ```
 apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev
 ```
-4. Install npm modules:
-    * `npm install`
-    * `npm install bn.js elliptic mkdirp webtorrent-hybrid create-torrent parse-torrent socket.io-client leveldown express cors`
+4. Install npm modules: `npm install`
 5. Change `$NODE_API_KEY` in `bin/start` to a custom key, you can generate a random one:
 ```
 head -c 32 /dev/random | base64
