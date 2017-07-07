@@ -57,7 +57,7 @@
         var coordinates = '(' + tile.x + ', ' + tile.y + ') ';
         var content = hasContent(tile) ? 'Click to see content' : 'Empty';
 
-        tilesHTML += '<li><a href="' + getTileURL(tile) + '" target="_blank">' + coordinates + content + '<a></li>';
+        tilesHTML += '<li><a href="' + getTileURL(tile) + '" target="_blank">' + coordinates + content + '</a></li>';
       });
 
     getElementById('loading-tiles').className = 'hidden';
