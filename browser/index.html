@@ -25,10 +25,10 @@
     </div>
     <div class="content">
       <div class="tiles">
-        <h2>Tiles</h2>
+        <h2>Tiles <small id="js-transfer-tiles" class="hidden link">Transfer</small></h2>
         <span id="js-tile-count"></span>
         <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
-        <ul id="js-tiles" class="scrolleable"></ul>
+        <div id="js-tiles"></div>
       </div>
 
       <div class="rpc">
@@ -55,9 +55,31 @@
     </template>
 
     <template id="js-tiles-template">
-      <li><a href="{{=url}}" target="_blank">({{=x}}, {{=y}}): {{=content}}</a></li>
+      <ul class="scrolleable">
+        {{@tiles}}
+          <li><a href="{{=_val.url}}" target="_blank">({{=_val.x}}, {{=_val.y}}): {{=_val.contentText}}</a></li>
+        {{/@tiles}}
+      </ul>
     </template>
 
+    <template id="js-modal-template">
+      <h2>Transfer tiles</h2>
+
+      <form id="js-transfer-tiles-form" method="POST" action="/transfertiles">
+        <ul class="scrolleable">
+          {{@tiles}}
+            <li>
+              <input type="checkbox" name="coordinate" value="{{=_val.x}},{{=_val.y}}">
+              <a href="{{=_val.url}}" target="_blank">({{=_val.x}}, {{=_val.y}}): {{=_val.contentText}}</a>
+            </li>
+          {{/@tiles}}
+        </ul>
+        <input type="text" name="address" class="input cmd" placeholder="Destination address">
+        <input type="submit" class="input send" value="SEND">
+      </form>
+    </template>
+
+    <script src="js/picoModal.min.js"></script>
     <script src="js/t.min.js"></script>
     <script src="js/main.js"></script>
   </body>

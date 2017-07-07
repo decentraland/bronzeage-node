@@ -30,11 +30,6 @@ h4 {
   font-weight: 400;
 }
 
-small {
-  margin: 10px;
-  display: block;
-}
-
 a {
   text-decoration: none;
 }
@@ -57,6 +52,30 @@ a, .link {
   width: 52px;
   height: 52px;
   background-position: 0 0;
+}
+
+.input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input[disabled] {
+  background-color: #CCC;
+}
+
+.input.cmd {
+  width: 78%;
+  float: left;
+}
+
+.input.send {
+  width: 20%;
+  float: right;
+  background-color: #30D7A9;
+  color: #FFF;
 }
 
 .header {
@@ -96,49 +115,37 @@ a, .link {
   overflow: hidden;
 }
 
-.rpc .input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #CCC;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
 .rpc .result {
   width: 100%;
   margin-bottom: 15px;
   display: block;
 }
 
-.rpc .cmd {
-  width: 78%;
-  float: left;
-}
-
-.rpc .send {
-  width: 20%;
-  float: right;
-  background-color: #30D7A9;
-  color: #FFF;
-}
-.rpc .send[disabled] {
-  background-color: #CCC;
-}
-
 @media (min-width: 768px) {
-  .tiles {
-    width: 49%;
-  }
-  .rpc {
-    width: 47%;
-  }
-
   .tiles, .rpc {
     padding: 0;
     float: left;
   }
 
+  .tiles {
+    width: 49%;
+  }
+
   .rpc {
+    width: 47%;
     margin-left: 10px;
   }
+}
+
+.transfer-tiles-modal {
+  min-width: 35%;
+  padding: 20px 50px;
+}
+
+.transfer-tiles-modal ul {
+  list-style: none;
+}
+
+.transfer-tiles-modal .scrolleable {
+  max-height: 280px;
 }

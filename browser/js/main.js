@@ -1,9 +1,50 @@
 ;(function() {
   'use strict';
 
+  var currentTiles = [];
+
   fetchCurrentStats();
 
-  fetchJSON('/gettiles').then(showTiles);
+  fetchCurrentTiles();
+
+  getElementById('node-stats')
+    .addEventListener('click', function loadStats(event) {
+      // Because the start/stop buttons are added dinamically,
+      // we hook the click event to the parent and theck for the desired id
+      var command = {
+        'js-start-node': 'startmining',
+        'js-stop-node': 'stopmining'
+      }[event.target.id];
+
+      if (command) {
+        getElementById('node-stats').innerHTML = 'Running...';
+        RPCCall(command).then(fetchCurrentStats);
+      }
+    }, true);
+
+  getElementById('transfer-tiles')
+    .addEventListener('click', function transferTilesEvent(event) {
+      var modal = picoModal({
+        content: renderTemplate('modal', { tiles: currentTiles }),
+        modalClass: 'transfer-tiles-modal'
+      })
+      .afterShow(function() {
+        getElementById('transfer-tiles-form').addEventListener('submit', function(event) {
+          var formData = new FormData(this);
+          var coordinates = formData.getAll('coordinate');
+          var address = formData.get('address');
+
+          if (transferTiles(coordinates, address)) {
+            modal.destroy();
+          }
+
+          event.preventDefault();
+        }, true);
+      })
+      .afterClose(function() {
+        modal.destroy();
+      }).show();
+    }, true)
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
@@ -22,21 +63,6 @@
       event.preventDefault();
     }, true);
 
-  getElementById('node-stats')
-    .addEventListener('click', function(event) {
-      // Because the start/stop buttons are added dinamically,
-      // we hook the click event to the parent and theck for the desired id
-      var command = {
-        'js-start-node': 'startmining',
-        'js-stop-node': 'stopmining'
-      }[event.target.id];
-
-      if (command) {
-        getElementById('node-stats').innerHTML = 'Running...';
-        RPCCall(command).then(fetchCurrentStats);
-      }
-    }, true);
-
 
   // --------------------------------------------------------
   // Handlers
@@ -46,6 +72,13 @@
       RPCCall('getblockchaininfo'),
       RPCCall('getminerinfo')
     ]).then(showCurrentState);
+  }
+
+  function fetchCurrentTiles() {
+    getElementById('loading-tiles').className = 'loading';
+    getElementById('tiles').innerHTML = '';
+
+    fetchJSON('/gettiles').then(showTiles);
   }
 
   function showCurrentState(responses) {
@@ -61,35 +94,48 @@
 
   function showTiles(tiles) {
     var counts = { content: 0, empty: 0, total: tiles.length };
-    var tilesHTML = '';
 
-    tiles.sort(contentSorter);
-    tiles.forEach(function(tile) {
-      var content = '';
+    tiles = tiles
+      .sort(contentSorter)
+      .map(function(tile) {
+        tile.contentText = hasContent(tile) ? 'Click to see content' : 'Empty';
+        tile.url = getTileURL(tile);
 
-      if (hasContent(tile)) {
-        content = 'Click to see content';
-        counts.content += 1;
-      } else {
-        content = 'Empty';
-        counts.empty += 1;
-      }
+        if (hasContent(tile)) {
+          counts.content += 1;
+        } else {
+          counts.empty += 1;
+        }
 
-      tilesHTML += renderTemplate('tiles', {
-        x  : tile.x,
-        y  : tile.y,
-        url: getTileURL(tile),
-        content: content
+        return tile;
       });
-    });
 
-    getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = renderTemplate('counts', counts)
-    getElementById('tiles').innerHTML = tilesHTML;
+    getElementById('loading-tiles').className  = 'hidden';
+    getElementById('transfer-tiles').className = 'link';
+    getElementById('tile-count').innerHTML = renderTemplate('counts', counts);
+    getElementById('tiles').innerHTML      = renderTemplate('tiles', { tiles: tiles });
+
+    currentTiles = tiles;
   }
 
   function showRPCResponse(response) {
     getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
+  }
+
+  function transferTiles(coordinates, address) {
+    if (coordinates.length === 0 || ! address) return false;
+
+    coordinates = coordinates.map(function(coord) {
+      var points = coord.split(',')
+      return { x: points[0], y: points[1] }
+    })
+
+    fetchJSON('transfertiles', {
+      method: 'POST',
+      body: JSON.stringify({ coordinates: coordinates, address: address })
+    }).then(fetchCurrentTiles);
+
+    return true;
   }
 
 
