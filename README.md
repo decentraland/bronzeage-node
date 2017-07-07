@@ -120,15 +120,21 @@ docker-compose up
 
 ### Run a node manually
 1. Clone the repo:
-```git clone https://github.com/decentraland/bronzeage-node.git && cd bronzeage-node```
+```
+git clone https://github.com/decentraland/bronzeage-node.git && cd bronzeage-node
+```
 2. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0. See [nvm](http://nvm.sh) for version management.
 3. Install dependencies (__Linux only__):
-```apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev```
+```
+apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev
+```
 4. Install npm modules:
     * `npm install`
     * `npm install bn.js elliptic mkdirp webtorrent-hybrid create-torrent parse-torrent socket.io-client leveldown express cors`
 5. Change `$NODE_API_KEY` in `bin/start` to a custom key, you can generate a random one:
-```head -c 32 /dev/random | base64```
+```
+head -c 32 /dev/random | base64
+```
 6. Run the node!
 	* Windows: `bin\start.bat`
 	* Linux & Mac: `./bin/start`
