@@ -49,8 +49,7 @@
 
   function showTiles(tiles) {
     var tilesHTML = '';
-    var EMPTY_TILE_CONTENT = new Array(63).fill('0').join('');
-    tiles[1].content = EMPTY_TILE_CONTENT + 'a'
+
     // Concat strings here instead of using a `.map().join()` to avoid yet another iteration
     tiles
       .sort(contentSorter)

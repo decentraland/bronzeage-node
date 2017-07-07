@@ -78,6 +78,10 @@ a {
   word-break: break-all;
 }
 
+.tiles .loading {
+  margin-top: 20px;
+}
+
 .rpc .form {
   margin-bottom: 15px;
   overflow: hidden;
