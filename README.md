@@ -108,32 +108,6 @@ the tile at `(x, y)` is served at `GET /tile/x.y.lnd`
 ## Run a node
 There's two options for installing running a node: [with docker](#run-a-node-using-docker) and [without docker](#run-a-node-manually).
 
-### Run a node manually on Linux
-1. clone the repo:
-`git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
-2. Install [NodeJS](https://nodejs.org/en/).
-The current decentraland node requires NodeJS v7.4.0 or higher. See [nvm](http://nvm.sh) for version management.
-3. install dependencies:
-`apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev`
-4. install npm modules
-`npm install`
-5. Run the node!
-`./bin/start`
-
-### Run a node manually on Windows and Mac
-1. clone the repo:
-`git clone https://github.com/decentraland/bronzeage-node.git` && cd bronzeage-node
-2. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0 or higher.
-3. Install npm modules:
-    * `npm install`
-    * `npm install bn.js elliptic mkdirp webtorrent-hybrid create-torrent parse-torrent socket.io-client leveldown express cors`
-4. Run the node!
-	* Windows: `bin\start.bat`
-	* Mac: `./bin/start`
-
-You may use the CLI by running it with node:
-`node bin\cli [args]`
-
 ### Run a node using Docker
 Make sure you have [Docker
 installed](https://docs.docker.com/engine/installation/), and run (**note:
@@ -143,6 +117,28 @@ you might need to prepend `sudo` to these commands on Linux systems**):
 pip install docker-compose
 docker-compose up
 ```
+
+### Run a node manually
+1. Clone the repo:
+```
+git clone https://github.com/decentraland/bronzeage-node.git && cd bronzeage-node
+```
+2. [Download and install NodeJS](https://nodejs.org/en/) v7.4.0. See [nvm](http://nvm.sh) for version management.
+3. Install dependencies (__Linux only__):
+```
+apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev
+```
+4. Install npm modules: `npm install`
+5. Change `$NODE_API_KEY` in `bin/start` to a custom key, you can generate a random one:
+```
+head -c 32 /dev/random | base64
+```
+6. Run the node!
+	* Windows: `bin\start.bat`
+	* Linux & Mac: `./bin/start`
+
+You may use the CLI by running it with node:
+`node bin\cli [args]`
 
 Mining will start by default. To disable this, edit the file `bin/start` and
 remove the `--startminer` argument.

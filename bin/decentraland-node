@@ -3,6 +3,7 @@
 rl=0
 daemon=0
 cmd='node'
+args='--prof'
 
 if ! type perl > /dev/null 2>& 1; then
   if uname | grep -i 'darwin' > /dev/null; then
@@ -45,6 +46,7 @@ for arg in "$@"; do
     ;;
     --spv)
       cmd='spvnode'
+      args=''
     ;;
   esac
 done
@@ -55,11 +57,11 @@ if test $daemon -eq 1; then
     exit 1
   fi
   (
-    setsid "${dir}/${cmd}" "$@" > /dev/null 2>& 1 &
+    setsid "${dir}/${cmd}" "${args}" "$@" > /dev/null 2>& 1 &
     echo "$!"
   )
   exit 0
 else
-  exec "${dir}/${cmd}" "$@"
+  exec "${dir}/${cmd}" "${args}" "$@"
   exit 1
 fi
