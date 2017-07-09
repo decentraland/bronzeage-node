@@ -159,28 +159,6 @@
     });
   }
 
-  function showTiles(tiles) {
-    var tilesHTML = '';
-
-    // Concat strings here instead of using a `.map().join()` to avoid yet another iteration
-    tiles
-      .sort(contentSorter)
-      .forEach(function(tile) {
-        var coordinates = '(' + tile.x + ', ' + tile.y + ') ';
-        var content = hasContent(tile) ? 'Click to see content' : 'Empty';
-
-        tilesHTML += '<li><a href="' + getTileURL(tile) + '" target="_blank">' + coordinates + content + '</a></li>';
-      });
-
-    getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = tiles.length;
-    getElementById('tiles').innerHTML = tilesHTML;
-  }
-
-  function showRPCResponse(response) {
-    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
-  }
-
   function catchError(error) {
     console.log('[ERROR]', error);
   }
