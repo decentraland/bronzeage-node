@@ -1,4 +1,4 @@
-[![Decentraland][logo]](https://raw.githubusercontent.com/decentraland/web/gh-pages/img/decentraland.ico)
+![](https://raw.githubusercontent.com/decentraland/web/gh-pages/img/decentraland.ico)
 
 ## About
 
