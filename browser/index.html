@@ -48,9 +48,9 @@
     <template id="js-node-stats-template">
       Your node is currently
       {{running}}
-        running with a mining speed of {{=stats.hashrate}}khs. The blockchain ({{=blockchain.chain}}) has {{=blockchain.blocks}} blocks and a difficulty of {{=blockchain.difficulty}}. <span id="js-stop-node" class="link">Stop the node</span>
+        running with a mining speed of {{=stats.hashrate}}khs. The blockchain ({{=blockchain.chain}}) has {{=blockchain.blocks}} blocks and a difficulty of {{=blockchain.difficulty}}. <span id="js-stop-miner" class="link">Stop miner</span>
       {{:running}}
-        stopped. <span id="js-start-node" class="link">Start the node</span>
+        stopped. <span id="js-start-miner" class="link">Start miner</span>
       {{/running}}
     </template>
 

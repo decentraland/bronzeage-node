@@ -12,8 +12,8 @@
       // Because the start/stop buttons are added dinamically,
       // we hook the click event to the parent and theck for the desired id
       var command = {
-        'js-start-node': 'startmining',
-        'js-stop-node': 'stopmining'
+        'js-start-miner': 'startmining',
+        'js-stop-miner': 'stopmining'
       }[event.target.id];
 
       if (command) {
