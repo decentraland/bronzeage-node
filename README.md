@@ -129,7 +129,7 @@ git clone https://github.com/decentraland/bronzeage-node.git && cd bronzeage-nod
 apt-get update && apt-get install -y --no-install-recommends build-essential python xvfb libgtk2.0-0 libxtst-dev libxss-dev libgconf2-dev libnss3 libasound2-dev
 ```
 4. Install npm modules: `npm install`
-5. Change `$NODE_API_KEY` to a custom key via `export` or by changing it in `bin/start`. You can generate a random key like this:
+5. Change `$RPC_API_KEY` to a custom key via `export` or by changing it in `bin/start`. You can generate a random key like this:
 ```
 head -c 32 /dev/random | base64
 ```

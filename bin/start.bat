@@ -1,6 +1,6 @@
 @ECHO OFF
 
-node ./browser/server.js --apikey %NODE_API_KEY% --serverport %SERVER_PORT% --daemon &
+node ./browser/server.js --apikey %RPC_API_KEY% --serverport %SERVER_PORT% --daemon &
 
 ./bin/decentraland-node \
   --fast \

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ ! $NODE_API_KEY ]]; then
-  echo "[WARN] NODE_API_KEY not defined. Overwrite it with your custom key to keep track of your tiles"
+if [[ ! $RPC_API_KEY ]]; then
+  echo "[WARN] RPC_API_KEY not defined. Overwrite it with your custom key to keep track of your tiles"
   echo ""
 fi
 
@@ -14,7 +14,7 @@ if [[ ! $SERVER_PORT ]]; then
 fi
 
 echo "Starting Decentraland web dashboard!. The node will start shortly"
-node ./browser/server.js --apikey $NODE_API_KEY --serverport $SERVER_PORT --daemon &
+node ./browser/server.js --apikey $RPC_API_KEY --serverport $SERVER_PORT --daemon &
 
 sleep 2 # Give the user 2 seconds to read
 
@@ -27,5 +27,5 @@ echo "Starting node"
   --contentport=9301 \
   --prefix="data" \
   --n=testnet \
-  --apikey=$NODE_API_KEY \
+  --apikey=$RPC_API_KEY \
   --startminer=$START_MINER

@@ -108,12 +108,19 @@ Use your Finder and navigate to the `bin` folder and open up the `start` file wi
 You should see something like this:
 
 ```bash
-#!/bin/bash
-
-./bin/decentraland-node --fast --port=2301 --prefix="data" --httpport=8301 --n=testnet --apikey=$RPC_API_KEY --contentport=9301 --startminer
+./bin/decentraland-node \
+  --fast \
+  --loglevel=info \
+  --port=2301 \
+  --httpport=8301 \
+  --contentport=9301 \
+  --prefix="data" \
+  --n=testnet \
+  --apikey=$RPC_API_KEY \
+  --startminer=$START_MINER
 ```
 
-There you have to replace the 
+at the end of the file. There you have to replace the:
 
 ```bash
 --apikey=$RPC_API_KEY
