@@ -7,17 +7,20 @@
 
   fetchCurrentTiles();
 
-  getElementById('node-stats')
+  getElementById('miner-toggle')
     .addEventListener('click', function loadStats(event) {
-      // Because the start/stop buttons are added dinamically,
+      // Because the toggle is added dinamically,
       // we hook the click event to the parent and theck for the desired id
+      var target = event.target;
+      if (target.id !== 'js-switch') return;
+
       var command = {
-        'js-start-miner': 'startmining',
-        'js-stop-miner': 'stopmining'
-      }[event.target.id];
+        true: 'startmining',
+        false: 'stopmining'
+      }[target.checked];
 
       if (command) {
-        getElementById('node-stats').innerHTML = 'Running...';
+        getElementById('node-stats').innerHTML = 'Loading...';
         RPCCall(command).then(fetchCurrentStats);
       }
     }, true);
@@ -84,6 +87,10 @@
   function showCurrentState(responses) {
     var blockchaininfo = responses[0];
     var minerinfo = responses[1];
+
+    getElementById('miner-toggle').innerHTML = renderTemplate('miner-toggle', {
+      running: minerinfo.running
+    })
 
     getElementById('node-stats').innerHTML = renderTemplate('node-stats', {
       running   : minerinfo.running,

@@ -14,24 +14,35 @@
     <div class="header">
       <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
       <h2>A virtual world that runs on open standards</h2>
-      <h4>Welcome. From this page you will be able to manage your node and see your mined tiles.
-      You can send rpc calls to the node and see the result here</h4>
     </div>
 
-    <div class="content">
-      <div id="js-node-stats" class="node-stats">
-        Loading stats...
+    <div class="row">
+      <div class="miner col">
+        <h2>Miner</h2>
+
+        <div id="js-miner-toggle">
+          Loading...
+        </div>
+      </div>
+
+      <div class="node-stats col">
+        <h2>Stats</h2>
+
+        <div id="js-node-stats" class="node-stats col">
+          Loading...
+        </div>
       </div>
     </div>
-    <div class="content">
-      <div class="tiles">
+
+    <div class="row">
+      <div class="tiles col">
         <h2>Tiles <small id="js-transfer-tiles" class="hidden link">Transfer</small></h2>
         <span id="js-tile-count"></span>
         <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
         <div id="js-tiles"></div>
       </div>
 
-      <div class="rpc">
+      <div class="rpc col">
         <h2>RPC</h2>
         <form id="js-rpc-form" method="POST" action="/rpccall" class="form">
           <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
@@ -45,14 +56,42 @@
       You have {{=content}} tiles with content and {{=empty}} empty ones for a total of {{=total}} tiles.
     </template>
 
-    <template id="js-node-stats-template">
-      Your node is currently
-      {{running}}
-        running with a mining speed of {{=stats.hashrate}}khs. The blockchain ({{=blockchain.chain}}) has {{=blockchain.blocks}} blocks and a difficulty of {{=blockchain.difficulty}}. <span id="js-stop-miner" class="link">Stop miner</span>
-      {{:running}}
-        stopped. <span id="js-start-miner" class="link">Start miner</span>
-      {{/running}}
+    <template id="js-miner-toggle-template">
+      <div class="toggle">
+        <span class="visible-label">Toggle</span>
+        {{running}}
+          <input type="checkbox" id="js-switch" checked="checked" />
+        {{:running}}
+          <input type="checkbox" id="js-switch" />
+        {{/running}}
+        <label for="js-switch">Toggle</label>
+      </div>
     </template>
+
+  <template id="js-node-stats-template">
+    {{running}}
+      <table>
+        <thead>
+          <tr>
+            <th>Chain</th>
+            <th>Mining speed</th>
+            <th>Blocks</th>
+            <th>Difficulty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{=blockchain.chain}}</td>
+            <td>{{=stats.hashrate}}khz</td>
+            <td>{{=blockchain.blocks}}</td>
+            <td>{{=blockchain.difficulty}}</td>
+          </tr>
+        </tbody>
+      </table>
+    {{:running}}
+      Your miner is currently stopped.
+    {{/running}}
+  </template>
 
     <template id="js-tiles-template">
       <ul class="scrolleable">
