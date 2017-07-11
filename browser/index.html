@@ -44,25 +44,33 @@
       <div class="row">
         <div class="tiles col">
           <div class="box">
-            <h2>Tiles <small id="js-transfer-tiles" class="hidden link">Transfer</small></h2>
-            <span id="js-tile-count"></span>
-            <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
-            <div id="js-tiles"></div>
+            <h2>Tiles</h2>
+
+            <div class="tile-content">
+              <span id="js-tile-count"></span>
+              <span id="js-transfer-tiles" class="hidden link">Transfer</span>
+              <div id="js-tiles">Loading...</div>
+            </div>
           </div>
         </div>
 
         <div class="rpc col">
           <div class="box">
             <h2>RPC</h2>
-            <form id="js-rpc-form" method="POST" action="/rpccall" class="form">
-              <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
-              <input type="submit" class="input send" value="SEND">
-            </form>
-            <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
+
+            <div>
+              <form id="js-rpc-form" method="POST" action="/rpccall" class="form">
+                <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
+                <input type="submit" class="input send" value="SEND">
+              </form>
+              <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <br />
 
     <template id="js-counts-template">
       You have {{=content}} tiles with content and {{=empty}} empty ones for a total of {{=total}} tiles.
@@ -106,7 +114,7 @@
   </template>
 
     <template id="js-tiles-template">
-      <ul class="scrolleable">
+      <ul class="input scrolleable">
         {{@tiles}}
           <li><a href="{{=_val.url}}" target="_blank">({{=_val.x}}, {{=_val.y}}): {{=_val.contentText}}</a></li>
         {{/@tiles}}

@@ -78,8 +78,7 @@
   }
 
   function fetchCurrentTiles() {
-    getElementById('loading-tiles').className = 'loading';
-    getElementById('tiles').innerHTML = '';
+    getElementById('tiles').innerHTML = 'Loading...';
 
     fetchJSON('/gettiles').then(showTiles);
   }
@@ -117,7 +116,6 @@
         return tile;
       });
 
-    getElementById('loading-tiles').className  = 'hidden';
     getElementById('transfer-tiles').className = 'link';
     getElementById('tile-count').innerHTML = renderTemplate('counts', counts);
     getElementById('tiles').innerHTML      = renderTemplate('tiles', { tiles: tiles });
