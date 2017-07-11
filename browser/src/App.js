@@ -1,22 +1,16 @@
 import React from 'react'
 import Header from './components/Header'
-import { MinerBox, StatsBox, TilesBox, RPCBox } from './components/boxes'
+import InfoRowContainer from './components/InfoRowContainer'
+import { TilesBox, RPCBox } from './components/boxes'
 import './App.css'
+
 
 class App extends React.Component {
   render() {
     return <div className="App container">
       <Header />
 
-      <div className="row">
-        <div className="col">
-          <MinerBox />
-        </div>
-
-        <div className="col">
-          <StatsBox />
-        </div>
-      </div>
+      <InfoRowContainer />
 
       <br />
 
