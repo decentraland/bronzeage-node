@@ -1,6 +1,15 @@
 @ECHO OFF
 
-node ./browser/server.js --apikey %RPC_API_KEY% --serverport %SERVER_PORT% --daemon &
+setlocal
+for %%P in (%PATHEXT%) do (
+    if exist "%%~$PATH:node.exe" (
+      start "server" %%~$PATH:node.exe ./browser/server.js --apikey %RPC_API_KEY% --serverport %SERVER_PORT% --daemon
+      GOTO next
+    )
+  )
+)
+
+:next
 
 ./bin/decentraland-node \
   --fast \
