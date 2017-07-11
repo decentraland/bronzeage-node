@@ -1,13 +1,53 @@
 ;(function() {
   'use strict';
 
-  fetchJSON('/gettiles').then(showTiles)
+  var currentTiles = [];
 
-  RPCCall('getminerinfo').then(function(minerinfo) {
-    if (minerinfo.stats.hashrate) {
-      getElementById('mining-speed').innerHTML = 'Mining speed: ' + minerinfo.stats.hashrate + 'khs';
-    }
-  })
+  fetchCurrentStats();
+
+  fetchCurrentTiles();
+
+  getElementById('miner-toggle')
+    .addEventListener('click', function loadStats(event) {
+      // Because the toggle is added dinamically,
+      // we hook the click event to the parent and theck for the desired id
+      var target = event.target;
+      if (target.id !== 'js-switch') return;
+
+      var command = {
+        true: 'startmining',
+        false: 'stopmining'
+      }[target.checked];
+
+      if (command) {
+        getElementById('node-stats').innerHTML = 'Loading...';
+        RPCCall(command).then(fetchCurrentStats);
+      }
+    }, true);
+
+  getElementById('transfer-tiles')
+    .addEventListener('click', function transferTilesEvent(event) {
+      var modal = picoModal({
+        content: renderTemplate('modal', { tiles: currentTiles }),
+        modalClass: 'transfer-tiles-modal'
+      })
+      .afterShow(function() {
+        getElementById('transfer-tiles-form').addEventListener('submit', function(event) {
+          var formData = new FormData(this);
+          var coordinates = formData.getAll('coordinate');
+          var address = formData.get('address');
+
+          if (transferTiles(coordinates, address)) {
+            modal.destroy();
+          }
+
+          event.preventDefault();
+        }, true);
+      })
+      .afterClose(function() {
+        modal.destroy();
+      }).show();
+    }, true)
 
   getElementById('rpc-form')
     .addEventListener('submit', function sendRPC(event) {
@@ -30,8 +70,85 @@
   // --------------------------------------------------------
   // Handlers
 
+  function fetchCurrentStats() {
+    Promise.all([
+      RPCCall('getblockchaininfo'),
+      RPCCall('getminerinfo')
+    ]).then(showCurrentState);
+  }
+
+  function fetchCurrentTiles() {
+    getElementById('tiles').innerHTML = 'Loading...';
+
+    fetchJSON('/gettiles').then(showTiles);
+  }
+
+  function showCurrentState(responses) {
+    var blockchaininfo = responses[0];
+    var minerinfo = responses[1];
+
+    getElementById('miner-toggle').innerHTML = renderTemplate('miner-toggle', {
+      running: minerinfo.running
+    })
+
+    getElementById('node-stats').innerHTML = renderTemplate('node-stats', {
+      running   : minerinfo.running,
+      stats     : minerinfo.stats,
+      blockchain: blockchaininfo
+    });
+  }
+
+  function showTiles(tiles) {
+    var counts = { content: 0, empty: 0, total: tiles.length };
+
+    tiles = tiles
+      .sort(contentSorter)
+      .map(function(tile) {
+        tile.contentText = hasContent(tile) ? 'Click to see content' : 'Empty';
+        tile.url = getTileURL(tile);
+
+        if (hasContent(tile)) {
+          counts.content += 1;
+        } else {
+          counts.empty += 1;
+        }
+
+        return tile;
+      });
+
+    getElementById('transfer-tiles').className = 'link';
+    getElementById('tile-count').innerHTML = renderTemplate('counts', counts);
+    getElementById('tiles').innerHTML      = renderTemplate('tiles', { tiles: tiles });
+
+    currentTiles = tiles;
+  }
+
+  function showRPCResponse(response) {
+    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
+  }
+
+  function transferTiles(coordinates, address) {
+    if (coordinates.length === 0 || ! address) return false;
+
+    coordinates = coordinates.map(function(coord) {
+      var points = coord.split(',')
+      return { x: points[0], y: points[1] }
+    })
+
+    fetchJSON('transfertiles', {
+      method: 'POST',
+      body: JSON.stringify({ coordinates: coordinates, address: address })
+    }).then(fetchCurrentTiles);
+
+    return true;
+  }
+
+
+  // --------------------------------------------------------
+  // Utils
+
   function RPCCall(cmd) {
-    return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' })
+    return fetchJSON('/rpccall?cmd=' + cmd, { method: 'POST' });
   }
 
   function fetchJSON(url, options) {
@@ -43,30 +160,8 @@
           response.text().then(catchError);
         }
       })
-      .catch(catchError)
-    })
-  }
-
-  function showTiles(tiles) {
-    var tilesHTML = '';
-
-    // Concat strings here instead of using a `.map().join()` to avoid yet another iteration
-    tiles
-      .sort(contentSorter)
-      .forEach(function(tile) {
-        var coordinates = '(' + tile.x + ', ' + tile.y + ') ';
-        var content = hasContent(tile) ? 'Click to see content' : 'Empty';
-
-        tilesHTML += '<li><a href="' + getTileURL(tile) + '" target="_blank">' + coordinates + content + '</a></li>';
-      });
-
-    getElementById('loading-tiles').className = 'hidden';
-    getElementById('tile-count').innerHTML = tiles.length;
-    getElementById('tiles').innerHTML = tilesHTML;
-  }
-
-  function showRPCResponse(response) {
-    getElementById('rpc-result').innerHTML = JSON.stringify(response, null, 2);
+      .catch(catchError);
+    });
   }
 
   function catchError(error) {
@@ -85,6 +180,11 @@
 
   function getTileURL(tile) {
     return 'https://decentraland.org/app/?x=' + tile.x + '&y=' + tile.y;
+  }
+
+  function renderTemplate(name, data) {
+    var template = getElementById(name + '-template').innerHTML;
+    return new t(template).render(data);
   }
 
   function getElementById(id) {
