@@ -1,3 +1,14 @@
 @ECHO OFF
 
-.\bin\decentraland-node --fast --port=2301 --prefix="data" --httpport=8301 --n=testnet --apikey=%RPC_API_KEY% --contentport=9301 --startminer
+node ./browser/server.js --apikey %NODE_API_KEY% --serverport %SERVER_PORT% --daemon &
+
+./bin/decentraland-node \
+  --fast \
+  --loglevel=info \
+  --port=2301 \
+  --httpport=8301 \
+  --contentport=9301 \
+  --prefix="data" \
+  --n=testnet \
+  --apikey=%RPC_API_KEY% \
+  --startminer=%START_MINER%

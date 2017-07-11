@@ -6,15 +6,19 @@ var config = require('../lib/node/config');
 var co = require('../lib/utils/co');
 var fs = require('fs');
 
-console.log('Starting Decentraland server!');
-console.log('Remember that it supports the same flags as the node (via ENV or argv)\n');
 
 var CONFIG = config({ config: true, arg: true, env: true }).data;
 var PORT = CONFIG.serverport || 8080;
 
 var server = new HTTPBase();
 
-if (! CONFIG.apikey) console.warn('[WARN] No apikey supplied, you can explicitly set one using `--apikey YOUR_API_KEY`');
+if (! CONFIG.daemon) {
+  console.log('Starting Decentraland server!');
+  console.log('Remember that it supports the same flags as the node (via ENV or argv)\n');
+
+  if (! CONFIG.apikey) console.warn('[WARN] No apikey supplied, you can explicitly set one using `--apikey YOUR_API_KEY`');
+}
+
 var client = new Client({
   apiKey: CONFIG.apikey
 });
@@ -121,7 +125,7 @@ server.on('error', function(err) {
   console.error(err.stack.toString());
 });
 
-process.stdout.write('Running server on port ' + PORT);
+process.stdout.write('Running server on port ' + PORT + '. Visit http://localhost:' + PORT + ' to see it');
 if (! CONFIG.serverport) process.stdout.write('. You can change this using --serverport PORT');
 console.log('');
 server.listen(PORT);
