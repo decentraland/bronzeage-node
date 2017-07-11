@@ -11,44 +11,56 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <div class="header">
-      <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
-      <h2>A virtual world that runs on open standards</h2>
-    </div>
+    <div class="container">
+      <div class="header">
+        <h1><i class="icon icon-decentraland"></i> Decentraland</h1>
+        <h2>A virtual world that runs on open standards</h2>
+      </div>
 
-    <div class="row">
-      <div class="miner col">
-        <h2>Miner</h2>
+      <div class="row">
+        <div class="miner col">
+          <div class="box">
+            <h2>Miner</h2>
 
-        <div id="js-miner-toggle">
-          Loading...
+            <div id="js-miner-toggle">
+              Loading...
+            </div>
+          </div>
+        </div>
+
+        <div class="node-stats col">
+          <div class="box">
+            <h2>Stats</h2>
+
+            <div id="js-node-stats">
+              Loading...
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="node-stats col">
-        <h2>Stats</h2>
+      <br />
 
-        <div id="js-node-stats" class="node-stats col">
-          Loading...
+      <div class="row">
+        <div class="tiles col">
+          <div class="box">
+            <h2>Tiles <small id="js-transfer-tiles" class="hidden link">Transfer</small></h2>
+            <span id="js-tile-count"></span>
+            <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
+            <div id="js-tiles"></div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="tiles col">
-        <h2>Tiles <small id="js-transfer-tiles" class="hidden link">Transfer</small></h2>
-        <span id="js-tile-count"></span>
-        <div id="js-loading-tiles" class="loading">Loading current tiles...</div>
-        <div id="js-tiles"></div>
-      </div>
-
-      <div class="rpc col">
-        <h2>RPC</h2>
-        <form id="js-rpc-form" method="POST" action="/rpccall" class="form">
-          <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
-          <input type="submit" class="input send" value="SEND">
-        </form>
-        <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
+        <div class="rpc col">
+          <div class="box">
+            <h2>RPC</h2>
+            <form id="js-rpc-form" method="POST" action="/rpccall" class="form">
+              <input type="text" name="cmd" class="input cmd" placeholder="RPC command (e.g. startmining, stopmining, getblockchaininfo)">
+              <input type="submit" class="input send" value="SEND">
+            </form>
+            <pre id="js-rpc-result" class="input result scrolleable">RPC result goes here</pre>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -76,7 +88,7 @@
             <th>Chain</th>
             <th>Mining speed</th>
             <th>Blocks</th>
-            <th>Difficulty</th>
+            <th class="hidden-xs">Difficulty</th>
           </tr>
         </thead>
         <tbody>
@@ -84,7 +96,7 @@
             <td>{{=blockchain.chain}}</td>
             <td>{{=stats.hashrate}}khz</td>
             <td>{{=blockchain.blocks}}</td>
-            <td>{{=blockchain.difficulty}}</td>
+            <td class="hidden-xs">{{=blockchain.difficulty}}</td>
           </tr>
         </tbody>
       </table>

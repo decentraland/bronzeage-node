@@ -1,16 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   height: 100%;
 }
 
 body {
   height: 90%;
-  padding: 15px;
+  padding: 15px 0;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
   font-size: 16px;
   background: #F8FAFF;
   color: #232323;
-  box-sizing: border-box;
 }
 
 h1, h2 {
@@ -44,12 +47,12 @@ table {
 }
 
 thead th {
-  background-color: #31419E;
-  color: #E0E7ED;
+  background-color: #30D7A9;
+  color: #FFF;
 }
 
 td, th {
-  border: 1px solid #999;
+  border: 1px solid #666;
   padding: 0.6rem 0.5rem;
   text-align: center;
   font-weight: 400;
@@ -78,7 +81,6 @@ td, th {
   font-size: 16px;
   border: 1px solid #CCC;
   border-radius: 5px;
-  box-sizing: border-box;
 }
 
 .input[disabled] {
@@ -94,15 +96,30 @@ td, th {
   width: 20%;
   float: right;
   background-color: #30D7A9;
+  border-color: #30D7A9;
   color: #FFF;
 }
 
-.header {}
+.header {
+  margin-bottom: 20px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
 
 .row {
-  width: 100%;
-  overflow: hidden;
-  padding: 25px 0 10px;
+  margin-left: -15px;
+  margin-right: -15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.row:before {
+  content: " ";
+  display: table;
 }
 
 .scrolleable {
@@ -112,15 +129,40 @@ td, th {
 
 .col {
   width: 100%;
-  padding: 10px 0;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
 }
 
-.col h2 {
+.box {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.box h2 {
+  margin-top: 0;
   margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+  .hidden-xs {
+    display: none;
+  }
+}
+
+
 /* ---------------------
   Col styles */
+
+.miner, .tiles {
+  margin-bottom: 20px;
+}
 
 .tiles ul {
   padding-left: 20px;
@@ -160,13 +202,11 @@ td, th {
 
 @media (min-width: 768px) {
   .col {
-    width: 48%;
-    padding: 0;
-    float: left;
+    width: 50%;
   }
 
-  .rpc {
-    margin-left: 10px;
+  .miner, .tiles {
+    margin-bottom: 0;
   }
 }
 
