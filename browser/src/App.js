@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './Header'
-import { MinerBox, StatsBox, TilesBox, RPCBox } from './boxes'
+import Header from './components/Header'
+import { MinerBox, StatsBox, TilesBox, RPCBox } from './components/boxes'
 import './App.css'
 
 class App extends React.Component {
