@@ -9,9 +9,9 @@ export default function TilesCount({ tiles }) {
   const contentCount = new Tiles(tiles).countContent()
   const emptyCount = tiles.size - contentCount
 
-  return <div>
+  return <span>
     You have { contentCount } tiles with content and { emptyCount } empty ones for a total of { tiles.size } tiles.
-  </div>
+  </span>
 }
 
 TilesCount.propTypes = {

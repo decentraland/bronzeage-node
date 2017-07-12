@@ -32,6 +32,8 @@ export const TILES = {
   FAILED   : 'TILES_FAILED'
 }
 
+export const TRANSFER_TILES_REQUESTED = 'TRANSFER_TILES_REQUESTED'
+
 // ------------------------------------------
 // RPC
 
@@ -40,3 +42,11 @@ export const SEND_RPC = {
   SUCCEDED : 'SEND_RPC_SUCCEDED',
   FAILED   : 'SEND_RPC_FAILED'
 }
+
+// ------------------------------------------
+// MODALS
+
+export const OPEN_MODAL = 'OPEN_MODAL'
+
+export const CLOSE_MODALS = 'CLOSE_MODALS'
+export const CLOSE_MODAL = 'CLOSE_MODAL'

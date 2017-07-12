@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import { MinerBoxContainer, StatsBoxContainer, TilesBoxContainer, RPCBoxContainer } from './components/boxes'
+import { TilesModal } from './components/modals'
 import './App.css'
 
 
@@ -30,6 +31,8 @@ class App extends React.Component {
           <RPCBoxContainer />
         </div>
       </div>
+
+      <TilesModal />
     </div>
   }
 }

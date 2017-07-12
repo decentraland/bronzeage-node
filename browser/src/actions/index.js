@@ -42,6 +42,14 @@ export const fetchTiles = () => {
   }
 }
 
+export const transferTiles = (coordinates, address) => {
+  return {
+    type: types.TRANSFER_TILES_REQUESTED,
+    coordinates,
+    address
+  }
+}
+
 // ------------------------------------------
 // RPC
 
@@ -49,5 +57,28 @@ export const sendRpc = (command) => {
   return {
     type: types.SEND_RPC.REQUESTED,
     command
+  }
+}
+
+// ------------------------------------------
+// MODALS
+
+export const openModal = (modalId) => {
+  return {
+    type: types.OPEN_MODAL,
+    modalId
+  }
+}
+
+export const closeModals = () => {
+  return {
+    type: types.CLOSE_MODALS
+  }
+}
+
+export const closeModal = (modalId) => {
+  return {
+    type: types.CLOSE_MODAL,
+    modalId
   }
 }

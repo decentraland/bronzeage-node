@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import im from 'immutable'
 
 import Tiles from '../../lib/Tiles'
-import Tile from '../../lib/Tile'
+import TileLink from '../TileLink'
 
 
 export default function TileList({ tiles }) {
@@ -24,11 +24,8 @@ TileList.defaultProps = {
 
 
 function TileItem({ tile }) {
-  const tileInstance = new Tile(tile)
-  const contentText = tileInstance.hasContent() ? 'Click to see content' : 'Empty'
-
   return <li>
-    <a href={ tileInstance.getURL() } target="_blank">({ tile.get('x') }, { tile.get('y') }): { contentText }</a>
+    <TileLink tile={ tile } />
   </li>
 }
 

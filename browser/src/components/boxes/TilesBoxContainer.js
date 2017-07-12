@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import im from 'immutable'
 
 import { connect } from '../../store'
+import { TilesModal } from '../modals'
 import TilesCount from './TilesCount'
 import TileList from './TileList'
 import './Box.css'
@@ -17,7 +18,8 @@ class TilesBoxContainer extends React.Component {
 
   static getActions(actions) {
     return {
-      fetchTiles: actions.fetchTiles
+      fetchTiles: actions.fetchTiles,
+      openModal: actions.openModal
     }
   }
 
@@ -30,6 +32,10 @@ class TilesBoxContainer extends React.Component {
     this.props.actions.fetchTiles()
   }
 
+  openTilesModal() {
+    this.props.actions.openModal(TilesModal.MODAL_ID)
+  }
+
   render() {
     const tiles = this.props.tiles
 
@@ -37,8 +43,12 @@ class TilesBoxContainer extends React.Component {
       <h2>Tiles</h2>
 
       <div className="tile-content">
-        <TilesCount tiles={ tiles } />
-        <span id="js-transfer-tiles" className="hidden link">Transfer</span>
+        <div>
+          <TilesCount tiles={ tiles } />
+          &nbsp;
+          { !! tiles.size && <span className="link" onClick={ this.openTilesModal.bind(this) }>Transfer</span> }
+        </div>
+
         <TileList tiles={ tiles } />
       </div>
     </div>

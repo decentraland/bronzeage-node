@@ -58,6 +58,10 @@ export function TILES_FAILED(state, action) {
   return state
 }
 
+export function TRANSFER_TILES_REQUESTED(state) {
+  return state
+}
+
 // ------------------------------------------
 // RPC
 
@@ -71,4 +75,20 @@ export function SEND_RPC_SUCCEDED(state, action) {
 
 export function SEND_RPC_FAILED(state, action) {
   return state
+}
+
+// ------------------------------------------
+// MODALS
+
+export function OPEN_MODAL(state, action) {
+  return state.set('currentModal', action.modalId)
+}
+
+export function CLOSE_MODALS(state) {
+  return state.set('currentModal', null)
+}
+
+export function CLOSE_MODAL(state, action) {
+  // modalId not used yet, can be used to open more than one modal at a time, which is not currently supported
+  return CLOSE_MODALS(state)
 }

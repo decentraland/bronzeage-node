@@ -13,7 +13,7 @@ function* fetchMinerInfo(action) {
     const address = yield call(() => api.RPCCall('getnewaddress'))
 
     // Flatten the object (removing the stats key)
-    const miner = { address, running: minerinfo.running, ...minerinfo.stats }
+    const miner = { address: address.result, running: minerinfo.running, ...minerinfo.stats }
 
     yield put({ type: types.MINER_INFO.SUCCEDED, miner })
   } catch (error) {
@@ -69,6 +69,16 @@ function* fetchTiles(action) {
   }
 }
 
+function* transferTiles(action) {
+  try {
+    const { coordinates, address } = action
+    yield call(() => api.transferTiles(coordinates, address))
+    yield fetchTiles()
+  } catch (error) {
+    console.error('Error transfering tiles', error)
+  }
+}
+
 // -------------------------------------------------------------------------
 // RPC
 
@@ -102,6 +112,10 @@ function* watchTilesFetch() {
   yield takeLatest(types.TILES.REQUESTED, fetchTiles)
 }
 
+function* watchTransferTiles() {
+  yield takeLatest(types.TRANSFER_TILES_REQUESTED, transferTiles)
+}
+
 function* watchSendRpc() {
   yield takeLatest(types.SEND_RPC.REQUESTED, sendRpc)
 }
@@ -115,6 +129,7 @@ export default function* rootSaga() {
     watchBlockchainInfoFetch(),
 
     watchTilesFetch(),
+    watchTransferTiles(),
 
     watchSendRpc()
   ])

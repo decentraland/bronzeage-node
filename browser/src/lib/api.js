@@ -8,6 +8,10 @@ class API {
     return this.request('get', '/gettiles')
   }
 
+  transferTiles(coordinates, address) {
+    return this.request('post', '/transfertiles', { coordinates, address })
+  }
+
   RPCCall(cmd) {
     return this.request('post', '/rpccall', { cmd })
   }

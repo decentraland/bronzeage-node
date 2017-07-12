@@ -21,7 +21,9 @@ const INITIAL_STATE = im.fromJS({
 
   tiles: [],
 
-  rpcResult: {}
+  rpcResult: {},
+
+  currentModal: null
 })
 
 
