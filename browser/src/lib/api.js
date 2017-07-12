@@ -4,6 +4,10 @@ import axios from 'axios'
 const httpClient = axios.create()
 
 class API {
+  getTiles() {
+    return this.request('get', '/gettiles')
+  }
+
   RPCCall(cmd) {
     return this.request('post', '/rpccall', { cmd })
   }

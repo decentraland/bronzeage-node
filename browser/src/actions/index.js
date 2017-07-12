@@ -32,3 +32,12 @@ export const fetchBlockchainInfo = () => {
     type: types.BLOCKCHAIN_INFO.REQUESTED
   }
 }
+
+// ------------------------------------------
+// TILES
+
+export const fetchTiles = () => {
+  return {
+    type: types.TILES.REQUESTED
+  }
+}

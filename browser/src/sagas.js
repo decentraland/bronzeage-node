@@ -4,6 +4,9 @@ import * as types from './actions/action-types'
 import api from './lib/api'
 
 
+// -------------------------------------------------------------------------
+// MINER
+
 function* fetchMinerInfo(action) {
   try {
     const minerinfo = yield call(() => api.RPCCall('getminerinfo'))
@@ -40,6 +43,9 @@ function* updateMiningState(action) {
   }
 }
 
+// -------------------------------------------------------------------------
+// BLOCKCHAIN
+
 function* fetchBlockchainInfo(action) {
   try {
     const blockchain = yield call(() => api.RPCCall('getblockchaininfo'))
@@ -47,6 +53,19 @@ function* fetchBlockchainInfo(action) {
     yield put({ type: types.BLOCKCHAIN_INFO.SUCCEDED, blockchain })
   } catch (error) {
     yield put({ type: types.BLOCKCHAIN_INFO.FAILED, message: error.message })
+  }
+}
+
+// -------------------------------------------------------------------------
+// TILES
+
+function* fetchTiles(action) {
+  try {
+    const tiles = yield call(() => api.getTiles())
+
+    yield put({ type: types.TILES.SUCCEDED, tiles })
+  } catch (error) {
+    yield put({ type: types.TILES.FAILED, message: error.message })
   }
 }
 
@@ -66,11 +85,18 @@ function* watchBlockchainInfoFetch() {
   yield takeLatest(types.BLOCKCHAIN_INFO.REQUESTED, fetchBlockchainInfo)
 }
 
+function* watchTilesFetch() {
+  yield takeLatest(types.TILES.REQUESTED, fetchTiles)
+}
+
 
 export default function* rootSaga() {
   yield all([
     watchMinerInfoFetch(),
     watchMiningUpdate(),
-    watchBlockchainInfoFetch()
+
+    watchBlockchainInfoFetch(),
+
+    watchTilesFetch()
   ])
 }

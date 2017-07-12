@@ -22,3 +22,12 @@ export const BLOCKCHAIN_INFO = {
   SUCCEDED : 'BLOCKCHAIN_INFO_SUCCEDED',
   FAILED   : 'BLOCKCHAIN_INFO_FAILED'
 }
+
+// ------------------------------------------
+// TILES
+
+export const TILES = {
+  REQUESTED: 'TILES_REQUESTED',
+  SUCCEDED : 'TILES_SUCCEDED',
+  FAILED   : 'TILES_FAILED'
+}

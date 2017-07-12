@@ -17,7 +17,9 @@ const INITIAL_STATE = im.fromJS({
     address: '',
     hashrate: 0,
     running: false
-  }
+  },
+
+  tiles: []
 })
 
 

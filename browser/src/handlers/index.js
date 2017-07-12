@@ -42,3 +42,18 @@ export function BLOCKCHAIN_INFO_SUCCEDED(state, action) {
 export function BLOCKCHAIN_INFO_FAILED(state, action) {
   return state
 }
+
+// ------------------------------------------
+// TILES
+
+export function TILES_REQUESTED(state) {
+  return state
+}
+
+export function TILES_SUCCEDED(state, action) {
+  return state.set('tiles', im.fromJS(action.tiles))
+}
+
+export function TILES_FAILED(state, action) {
+  return state
+}
