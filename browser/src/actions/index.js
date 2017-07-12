@@ -1,8 +1,8 @@
 import * as types from './action-types'
 
 
-export const getStats = () => {
+export const fetchStats = () => {
   return {
-    type: types.GET_STATS
+    type: types.STATS_FETCH.REQUESTED
   }
 }

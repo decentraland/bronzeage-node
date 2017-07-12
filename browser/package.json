@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.2",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
@@ -10,6 +11,7 @@
     "react-redux": "^5.0.5",
     "react-scripts": "1.0.10",
     "redux": "^3.7.1",
+    "redux-saga": "^0.15.4",
     "redux-thunk": "^2.2.0"
   },
   "scripts": {

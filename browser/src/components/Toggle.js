@@ -7,6 +7,6 @@ export default function Toggle({ active }) {
 }
 
 Toggle.propTypes = {
-  active: PropTypes.object.boolean
+  active: PropTypes.bool
 }
 

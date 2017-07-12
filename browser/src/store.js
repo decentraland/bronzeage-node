@@ -1,12 +1,13 @@
 import im from 'immutable'
-import PropTypes from 'prop-types'
 
 import { createStore, applyMiddleware, bindActionCreators } from 'redux'
 import * as reactRedux from 'react-redux'
 import reduxThunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
 
 import * as handlers from './handlers'
 import * as actions from './actions'
+import rootSaga from './sagas'
 
 
 const INITIAL_STATE = im.fromJS({
@@ -16,6 +17,10 @@ const INITIAL_STATE = im.fromJS({
       stats: {},
       running: false
     }
+  },
+
+  errors: {
+    // 'key': message
   }
 })
 
@@ -30,12 +35,6 @@ function invokeHandler(state, action) {
 
   return handler(state, action)
 }
-
-
-export const store = createStore(
-  invokeHandler,
-  applyMiddleware(reduxThunk)
-)
 
 
 export function dispatch(action) {
@@ -61,6 +60,8 @@ export function connect(Component) {
   }
 
   function mapDispatchToProps(dispatch) {
+    if (! Component.getActions) return {}
+
     const actionCreators = Component.getActions(actions, dispatch)
 
     return {
@@ -68,7 +69,15 @@ export function connect(Component) {
     }
   }
 
-  Component.propTypes.actions = PropTypes.object.isRequired
-
   return reactRedux.connect(mapStateToProps, mapDispatchToProps)(Component)
 }
+
+
+const sagaMiddleware = createSagaMiddleware()
+
+export const store = createStore(
+  invokeHandler,
+  applyMiddleware(reduxThunk, sagaMiddleware)
+)
+
+sagaMiddleware.run(rootSaga)

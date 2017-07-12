@@ -15,5 +15,5 @@ export default function MinerBox({ running }) {
 }
 
 MinerBox.propTypes = {
-  running: PropTypes.object.boolean
+  running: PropTypes.bool
 }
