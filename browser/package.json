@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "glob": "^7.1.2",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

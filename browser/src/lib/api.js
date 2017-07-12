@@ -2,6 +2,8 @@ import axios from 'axios'
 
 
 const httpClient = axios.create()
+const URL = process.env.REACT_APP_API_URL || 'http://localhost'
+const PORT = process.env.REACT_APP_API_PORT || 5000
 
 class API {
   getTiles() {
@@ -19,7 +21,7 @@ class API {
   request(method, path, params) {
     let options = {
       method,
-      url: `http://localhost:5000${path}`
+      url: `${URL}:${PORT}${path}`
     }
 
     if (params) {

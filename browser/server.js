@@ -2,13 +2,14 @@ var HTTPBase = require('../lib/http/base')
 var Client = require('../lib/http/client')
 var config = require('../lib/node/config')
 var co = require('../lib/utils/co')
-// var fs = require('fs')
+var glob = require('glob')
+var fs = require('fs')
 
 console.log('Starting Decentraland server!')
 console.log('Remember that it supports the same flags as the node (via ENV or argv)\n')
 
 var CONFIG = config({ config: true, arg: true, env: true }).data
-var PORT = CONFIG.serverport || 8080
+var PORT = CONFIG.serverport || 5000
 
 var server = new HTTPBase({ cors: true })
 
@@ -21,28 +22,28 @@ var client = new Client({
 // --------------------------------------------------------
 // Resources
 
-// var index      = fs.readFileSync(__dirname + '/index.html')
-// var mainjs     = fs.readFileSync(__dirname + '/js/main.js')
-// var templatejs = fs.readFileSync(__dirname + '/js/t.min.js')
-// var picoModal  = fs.readFileSync(__dirname + '/js/picoModal.min.js')
-// var maincss    = fs.readFileSync(__dirname + '/css/main.css')
+if (! CONFIG.api) {
+  var serveStatic = function(fullPath) {
+    var extension = fullPath.split('.').pop()
+    var requestPath = fullPath.replace(__dirname + '/build', '')
 
-// server.get('/', function(req, res, send) {
-//   send(200, index, 'html')
-// })
-// server.get('/js/main.js', function(req, res, send) {
-//   send(200, mainjs, 'js')
-// })
-// server.get('/js/t.min.js', function(req, res, send) {
-//   send(200, templatejs, 'js')
-// })
-// server.get('/js/picoModal.min.js', function(req, res, send) {
-//   send(200, picoModal, 'js')
-// })
-// server.get('/css/main.css', function(req, res, send) {
-//   send(200, maincss, 'css')
-// })
+    server.get(requestPath, function(req, res, send) {
+      send(200, fs.readFileSync(fullPath), extension)
+    })
+  }
 
+  var index = fs.readFileSync(__dirname + '/build/index.html')
+
+  var mainJsPath  = glob.sync(__dirname + '/build/static/js/main.*.js')[0]
+  var mainCssPath = glob.sync(__dirname + '/build/static/css/main.*.css')[0]
+
+  server.get('/', function(req, res, send) {
+    send(200, index, 'html')
+  })
+
+  serveStatic(mainJsPath)
+  serveStatic(mainCssPath)
+}
 
 // --------------------------------------------------------
 // API
