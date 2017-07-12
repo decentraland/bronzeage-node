@@ -1,12 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './Toggle.css'
 
 
-export default function Toggle({ active }) {
-  return <h3>Toggle {active.toString()}</h3>
+export default function Toggle({ active, onChange }) {
+  return <div className="Toggle">
+    <span>Toggle</span>
+
+    <input type="checkbox" id="_switch" checked={ active } onClick={ onChange } />
+
+    <label htmlFor="_switch">Toggle</label>
+  </div>
+
 }
 
 Toggle.propTypes = {
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  onChange: PropTypes.func
 }
 

@@ -11,16 +11,11 @@ import rootSaga from './sagas'
 
 
 const INITIAL_STATE = im.fromJS({
-  stats: {
-    blockchaininfo: {},
-    minerinfo: {
-      stats: {},
-      running: false
-    }
-  },
+  blockchain: {},
 
-  errors: {
-    // 'key': message
+  miner: {
+    hashrate: 0,
+    running: false
   }
 })
 

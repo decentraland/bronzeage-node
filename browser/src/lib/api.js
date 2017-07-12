@@ -5,7 +5,7 @@ const httpClient = axios.create()
 
 class API {
   RPCCall(cmd) {
-    return this.request('post', `/rpccall?cmd=${cmd}`)
+    return this.request('post', '/rpccall', { cmd })
   }
 
   request(method, path, params) {
@@ -15,8 +15,10 @@ class API {
     }
 
     if (params) {
+      params = JSON.stringify(params)
+
       if (method === 'get') {
-        options.params = { params: JSON.stringify(params) }
+        options.params = { params }
       } else {
         options.data = params
       }
@@ -25,6 +27,7 @@ class API {
     console.log(`[API] ${method} ${path}`, options)
 
     return httpClient.request(options)
+      .then(response => response.data)
       .catch(err => {
         let error
         console.log('RESPONSE ERROR', error)

@@ -1,16 +1,44 @@
+import im from 'immutable'
 
-export function STATS_FETCH_REQUESTED(state) {
-  console.log('==================STATS_FETCH_REQUESTED==================')
+
+// ------------------------------------------
+// MINER
+
+export function MINER_INFO_REQUESTED(state) {
   return state
 }
 
-export function STATS_FETCH_SUCCEDED(state, stats) {
-  console.log('******************STATS_FETCH_SUCCEDED***************************')
-  console.log(stats)
-  console.log('******************STATS_FETCH_SUCCEDED***************************')
-  return state.set('stats', stats)
+export function MINER_INFO_SUCCEDED(state, action) {
+  return state.update('miner', miner => miner.merge(im.fromJS(action.miner)))
 }
 
-export function STATS_FETCH_FAILED(state, error) {
-  return state.updateIn('errors', errors => errors.set('stats', error))
+export function MINER_INFO_FAILED(state, action) {
+  return state
+}
+
+export function UPDATE_MINING_REQUESTED(state) {
+  return state
+}
+
+export function UPDATE_MINING_SUCCEDED(state, action) {
+  return state
+}
+
+export function UPDATE_MINING_FAILED(state, action) {
+  return state
+}
+
+// ------------------------------------------
+// BLOCKCHAIN
+
+export function BLOCKCHAIN_INFO_REQUESTED(state) {
+  return state
+}
+
+export function BLOCKCHAIN_INFO_SUCCEDED(state, action) {
+  return state.update('blockchain', blockchain => blockchain.merge(im.fromJS(action.blockchain)))
+}
+
+export function BLOCKCHAIN_INFO_FAILED(state, action) {
+  return state
 }

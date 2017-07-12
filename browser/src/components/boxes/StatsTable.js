@@ -20,7 +20,7 @@ export default function StatsTable({ blockchain, hashrate }) {
       <tr>
         <td>{ blockchain.get('chain') || EMPTY_VALUE }</td>
 
-        <td>{ hashrate || '0' }khz</td>
+        <td>{ hashrate }khz</td>
 
         <td>{ blockchain.get('blocks') || EMPTY_VALUE }</td>
 
@@ -32,5 +32,9 @@ export default function StatsTable({ blockchain, hashrate }) {
 
 StatsTable.propTypes = {
   blockchain: PropTypes.instanceOf(im.Map),
-  hashrate  : PropTypes.string
+  hashrate  : PropTypes.number
+}
+
+StatsTable.defaultProps = {
+  hashrate: 0
 }

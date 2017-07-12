@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from './components/Header'
-import InfoRowContainer from './components/InfoRowContainer'
-import { TilesBox, RPCBox } from './components/boxes'
+import { MinerBoxContainer, StatsBoxContainer, TilesBox, RPCBox } from './components/boxes'
 import './App.css'
 
 
@@ -10,7 +9,15 @@ class App extends React.Component {
     return <div className="App container">
       <Header />
 
-      <InfoRowContainer />
+      <div className="row">
+        <div className="col">
+          <MinerBoxContainer />
+        </div>
+
+        <div className="col">
+          <StatsBoxContainer />
+        </div>
+      </div>
 
       <br />
 
