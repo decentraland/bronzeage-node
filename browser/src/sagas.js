@@ -69,6 +69,19 @@ function* fetchTiles(action) {
   }
 }
 
+// -------------------------------------------------------------------------
+// RPC
+
+function* sendRpc(action) {
+  try {
+    const rpcResult = yield call(() => api.RPCCall(action.command))
+
+    yield put({ type: types.SEND_RPC.SUCCEDED, rpcResult })
+  } catch (error) {
+    yield put({ type: types.SEND_RPC.FAILED, message: error.message })
+  }
+}
+
 
 // -------------------------------------------------------------------------
 // Watchers
@@ -89,6 +102,10 @@ function* watchTilesFetch() {
   yield takeLatest(types.TILES.REQUESTED, fetchTiles)
 }
 
+function* watchSendRpc() {
+  yield takeLatest(types.SEND_RPC.REQUESTED, sendRpc)
+}
+
 
 export default function* rootSaga() {
   yield all([
@@ -97,6 +114,8 @@ export default function* rootSaga() {
 
     watchBlockchainInfoFetch(),
 
-    watchTilesFetch()
+    watchTilesFetch(),
+
+    watchSendRpc()
   ])
 }

@@ -57,3 +57,18 @@ export function TILES_SUCCEDED(state, action) {
 export function TILES_FAILED(state, action) {
   return state
 }
+
+// ------------------------------------------
+// RPC
+
+export function SEND_RPC_REQUESTED(state) {
+  return state
+}
+
+export function SEND_RPC_SUCCEDED(state, action) {
+  return state.set('rpcResult', im.fromJS(action.rpcResult))
+}
+
+export function SEND_RPC_FAILED(state, action) {
+  return state
+}

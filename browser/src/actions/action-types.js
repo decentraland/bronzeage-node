@@ -31,3 +31,12 @@ export const TILES = {
   SUCCEDED : 'TILES_SUCCEDED',
   FAILED   : 'TILES_FAILED'
 }
+
+// ------------------------------------------
+// RPC
+
+export const SEND_RPC = {
+  REQUESTED: 'SEND_RPC_REQUESTED',
+  SUCCEDED : 'SEND_RPC_SUCCEDED',
+  FAILED   : 'SEND_RPC_FAILED'
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './components/Header'
-import { MinerBoxContainer, StatsBoxContainer, TilesBoxContainer, RPCBox } from './components/boxes'
+import { MinerBoxContainer, StatsBoxContainer, TilesBoxContainer, RPCBoxContainer } from './components/boxes'
 import './App.css'
 
 
@@ -27,7 +27,7 @@ class App extends React.Component {
         </div>
 
         <div className="col">
-          <RPCBox />
+          <RPCBoxContainer />
         </div>
       </div>
     </div>

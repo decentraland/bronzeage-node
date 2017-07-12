@@ -41,3 +41,13 @@ export const fetchTiles = () => {
     type: types.TILES.REQUESTED
   }
 }
+
+// ------------------------------------------
+// RPC
+
+export const sendRpc = (command) => {
+  return {
+    type: types.SEND_RPC.REQUESTED,
+    command
+  }
+}

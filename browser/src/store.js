@@ -19,7 +19,9 @@ const INITIAL_STATE = im.fromJS({
     running: false
   },
 
-  tiles: []
+  tiles: [],
+
+  rpcResult: {}
 })
 
 
