@@ -73,7 +73,8 @@
   function fetchCurrentStats() {
     Promise.all([
       RPCCall('getblockchaininfo'),
-      RPCCall('getminerinfo')
+      RPCCall('getminerinfo'),
+      RPCCall('getnewaddress')
     ]).then(showCurrentState);
   }
 
@@ -86,9 +87,11 @@
   function showCurrentState(responses) {
     var blockchaininfo = responses[0];
     var minerinfo = responses[1];
+    var address = responses[2];
 
     getElementById('miner-toggle').innerHTML = renderTemplate('miner-toggle', {
-      running: minerinfo.running
+      running: minerinfo.running,
+      address: address.result
     })
 
     getElementById('node-stats').innerHTML = renderTemplate('node-stats', {
