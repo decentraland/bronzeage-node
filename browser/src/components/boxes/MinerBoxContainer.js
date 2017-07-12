@@ -47,6 +47,8 @@ class MinerBoxContainer extends React.Component {
       <h2>Miner</h2>
 
       <div>
+        <div>Address: { miner.get('address') }</div>
+        <br />
         <Toggle active={ miner.get('running') } onChange={ this.onRunningChange.bind(this) } />
       </div>
     </div>

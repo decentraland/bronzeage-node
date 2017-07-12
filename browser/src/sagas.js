@@ -7,9 +7,10 @@ import api from './lib/api'
 function* fetchMinerInfo(action) {
   try {
     const minerinfo = yield call(() => api.RPCCall('getminerinfo'))
+    const address = yield call(() => api.RPCCall('getnewaddress'))
 
     // Flatten the object (removing the stats key)
-    const miner = { running: minerinfo.running, ...minerinfo.stats }
+    const miner = { address, running: minerinfo.running, ...minerinfo.stats }
 
     yield put({ type: types.MINER_INFO.SUCCEDED, miner })
   } catch (error) {

@@ -14,6 +14,7 @@ const INITIAL_STATE = im.fromJS({
   blockchain: {},
 
   miner: {
+    address: '',
     hashrate: 0,
     running: false
   }
