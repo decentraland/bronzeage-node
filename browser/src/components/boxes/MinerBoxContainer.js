@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import im from 'immutable'
 
 import { connect } from '../../store'
+import Loading from '../Loading'
 import Toggle from '../Toggle'
 import './Box.css'
 
@@ -46,13 +47,25 @@ class MinerBoxContainer extends React.Component {
     return <div className="Box miner">
       <h2>Miner</h2>
 
-      <div>
-        <div>Address: { miner.get('address') }</div>
-        <br />
-        <Toggle active={ miner.get('running') } onChange={ this.onRunningChange.bind(this) } />
-      </div>
+      { miner.get('loading')
+          ? <Loading />
+          : <MinerBox miner={ miner } onChange={ this.onRunningChange.bind(this) } /> }
     </div>
   }
+}
+
+
+function MinerBox({ miner, onChange }) {
+  return <div>
+    <div>Address: { miner.get('address') }</div>
+    <br />
+    <Toggle active={ miner.get('running') } onChange={ onChange } />
+  </div>
+}
+
+MinerBox.propTypes = {
+  miner: PropTypes.instanceOf(im.Map).isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 

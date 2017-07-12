@@ -6,7 +6,12 @@ import './RPCResult.css'
 
 
 export default function RPCResult({ result }) {
-  const resultAsText = JSON.stringify(result.toJS(), null, 2)
+  let resultAsText = 'RPC Results go here'
+
+  if (result && result.size) {
+    resultAsText = JSON.stringify(result.toJS(), null, 2)
+  }
+
   return <pre className="RPCResult input scrolleable">{ resultAsText }</pre>
 }
 

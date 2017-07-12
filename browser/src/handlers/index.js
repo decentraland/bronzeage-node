@@ -4,78 +4,38 @@ import im from 'immutable'
 // ------------------------------------------
 // MINER
 
-export function MINER_INFO_REQUESTED(state) {
-  return state
-}
+export const MINER_INFO_REQUESTED = createLoadingHandler('miner')
+export const MINER_INFO_SUCCEDED  = createSucceededHandler('miner')
+export const MINER_INFO_FAILED    = createFailedHandler('miner')
 
-export function MINER_INFO_SUCCEDED(state, action) {
-  return state.update('miner', miner => miner.merge(im.fromJS(action.miner)))
-}
-
-export function MINER_INFO_FAILED(state, action) {
-  return state
-}
-
-export function UPDATE_MINING_REQUESTED(state) {
-  return state
-}
-
-export function UPDATE_MINING_SUCCEDED(state, action) {
-  return state
-}
-
-export function UPDATE_MINING_FAILED(state, action) {
-  return state
-}
+// TODO: Handle this from the UI
+export const UPDATE_MINING_REQUESTED = noEffectHandler()
+export const UPDATE_MINING_SUCCEDED  = noEffectHandler()
+export const UPDATE_MINING_FAILED    = noEffectHandler()
 
 // ------------------------------------------
 // BLOCKCHAIN
 
-export function BLOCKCHAIN_INFO_REQUESTED(state) {
-  return state
-}
-
-export function BLOCKCHAIN_INFO_SUCCEDED(state, action) {
-  return state.update('blockchain', blockchain => blockchain.merge(im.fromJS(action.blockchain)))
-}
-
-export function BLOCKCHAIN_INFO_FAILED(state, action) {
-  return state
-}
+export const BLOCKCHAIN_INFO_REQUESTED = createLoadingHandler('blockchain')
+export const BLOCKCHAIN_INFO_SUCCEDED  = createSucceededHandler('blockchain')
+export const BLOCKCHAIN_INFO_FAILED    = createFailedHandler('blockchain')
 
 // ------------------------------------------
 // TILES
 
-export function TILES_REQUESTED(state) {
-  return state
-}
+export const TILES_REQUESTED = createLoadingHandler('tiles')
+export const TILES_SUCCEDED  = createSucceededHandler('tiles')
+export const TILES_FAILED    = createFailedHandler('tiles')
 
-export function TILES_SUCCEDED(state, action) {
-  return state.set('tiles', im.fromJS(action.tiles))
-}
-
-export function TILES_FAILED(state, action) {
-  return state
-}
-
-export function TRANSFER_TILES_REQUESTED(state) {
-  return state
-}
+export const TRANSFER_TILES_REQUESTED = noEffectHandler()
 
 // ------------------------------------------
 // RPC
 
-export function SEND_RPC_REQUESTED(state) {
-  return state
-}
 
-export function SEND_RPC_SUCCEDED(state, action) {
-  return state.set('rpcResult', im.fromJS(action.rpcResult))
-}
-
-export function SEND_RPC_FAILED(state, action) {
-  return state
-}
+export const SEND_RPC_REQUESTED = createLoadingHandler('rpcResult')
+export const SEND_RPC_SUCCEDED  = createSucceededHandler('rpcResult')
+export const SEND_RPC_FAILED    = createFailedHandler('rpcResult')
 
 // ------------------------------------------
 // MODALS
@@ -91,4 +51,23 @@ export function CLOSE_MODALS(state) {
 export function CLOSE_MODAL(state, action) {
   // modalId not used yet, can be used to open more than one modal at a time, which is not currently supported
   return CLOSE_MODALS(state)
+}
+
+// ------------------------------------------
+// UTILS
+
+function noEffectHandler() {
+  return (state) => state
+}
+
+function createLoadingHandler(key) {
+  return (state, action) => state.set(key, im.Map({ loading: true }))
+}
+
+function createSucceededHandler(key) {
+  return (state, action) => state.set(key, im.fromJS(action[key]))
+}
+
+function createFailedHandler(key) {
+  return (state, action) => state.set(key, im.Map({ error: action.message }))
 }

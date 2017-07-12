@@ -7,7 +7,7 @@ export default function Toggle({ active, onChange }) {
   return <div className="Toggle">
     <span>Toggle</span>
 
-    <input type="checkbox" id="_switch" checked={ active } onClick={ onChange } />
+    <input type="checkbox" id="_switch" checked={ active } onChange={ onChange } />
 
     <label htmlFor="_switch">Toggle</label>
   </div>

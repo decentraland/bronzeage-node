@@ -15,7 +15,10 @@ export default function TilesCount({ tiles }) {
 }
 
 TilesCount.propTypes = {
-  tiles: PropTypes.instanceOf(im.List)
+  tiles: PropTypes.oneOfType([
+    PropTypes.instanceOf(im.List), // tiles list
+    PropTypes.instanceOf(im.Map)   // loading/error
+  ]).isRequired,
 }
 
 TilesCount.defaultProps = {

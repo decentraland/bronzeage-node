@@ -15,7 +15,10 @@ export default function TileList({ tiles }) {
 }
 
 TileList.propTypes = {
-  tiles: PropTypes.instanceOf(im.List)
+  tiles: PropTypes.oneOfType([
+    PropTypes.instanceOf(im.List), // tiles list
+    PropTypes.instanceOf(im.Map)   // loading/error
+  ]).isRequired
 }
 
 TileList.defaultProps = {

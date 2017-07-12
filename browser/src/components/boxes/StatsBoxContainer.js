@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import im from 'immutable'
 
 import { connect } from '../../store'
+import Loading from '../Loading'
 import StatsTable from './StatsTable'
 import './Box.css'
 
@@ -43,9 +44,11 @@ class StatsBoxContainer extends React.Component {
     return <div className="Box node-stats">
       <h2>Stats</h2>
 
-      <div>
-        <StatsTable blockchain={ blockchain } hashrate={ hashrate } />
-      </div>
+      { blockchain.get('loading') && hashrate != null
+          ? <Loading />
+          : <div>
+            <StatsTable blockchain={ blockchain } hashrate={ hashrate } />
+          </div> }
     </div>
   }
 }

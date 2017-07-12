@@ -10,6 +10,7 @@ import * as actions from './actions'
 import rootSaga from './sagas'
 
 
+// { loading, error } || { actualData }
 const INITIAL_STATE = im.fromJS({
   blockchain: {},
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import im from 'immutable'
 
 import { connect } from '../../store'
+import Loading from '../Loading'
 import RPCResult from './RPCResult'
 import './RPCBox.css'
 import './Box.css'
@@ -55,7 +56,9 @@ class RPCBoxContainer extends React.Component {
           <input type="submit" className="input input-send" value="SEND" />
         </form>
 
-        <RPCResult result={ rpcResult } />
+        { rpcResult.get('loading')
+            ? <Loading />
+            : <RPCResult result={ rpcResult } /> }
       </div>
     </div>
   }

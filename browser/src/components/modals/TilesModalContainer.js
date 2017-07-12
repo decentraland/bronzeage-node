@@ -5,12 +5,13 @@ import Modal from 'react-modal'
 
 import { connect } from '../../store'
 import Tile from '../../lib/Tile'
+import Loading from '../Loading'
 import TileLink from '../TileLink'
 import './Modal.css'
 import './TilesModal.css'
 
 
-class TilesModal extends React.Component {
+class TilesModalContainer extends React.Component {
   static MODAL_ID = 'tilesModal';
 
   static getState(state) {
@@ -28,7 +29,10 @@ class TilesModal extends React.Component {
   }
 
   static propTypes = {
-    tiles       : PropTypes.instanceOf(im.List),
+    tiles: PropTypes.oneOfType([
+      PropTypes.instanceOf(im.List), // tiles list
+      PropTypes.instanceOf(im.Map)   // loading/error
+    ]).isRequired,
     currentModal: PropTypes.string,
     actions     : PropTypes.object
   };
@@ -41,7 +45,7 @@ class TilesModal extends React.Component {
   }
 
   isOpen() {
-    return this.props.currentModal === TilesModal.MODAL_ID
+    return this.props.currentModal === TilesModalContainer.MODAL_ID
   }
 
   onSubmit(event) {
@@ -91,26 +95,53 @@ class TilesModal extends React.Component {
     // This can be easily changed later to be more resillient
     const tiles = this.props.tiles
     const { address, selected } = this.state
+    const selectedCountText = this.hasSelections() ? `(${selected.length})` : ''
+
 
     return <Modal isOpen={ this.isOpen() } onRequestClose={ this.close.bind(this) } contentLabel="Tiles Modal">
       <span className="link close" onClick={ this.close.bind(this) }>x</span>
+      { tiles.get('loading')
+          ? <Loading />
+          : <TilesModal
+              title           = { `Transfer tiles ${selectedCountText}`}
+              tiles           = { tiles }
+              address         = { address }
+              onSubmit        = { this.onSubmit.bind(this) }
+              isSelected      = { this.isSelected.bind(this) }
+              onTileChange    = { this.onChange.bind(this) }
+              onAddressChange = { this.updateAddress.bind(this) }
+            /> }
 
-      <div className="TilesModal">
-        <h2>Transfer tiles { this.hasSelections() && `(${selected.length})` }</h2>
-
-        <form method="POST" action="/transfertiles" onSubmit={ this.onSubmit.bind(this) }>
-          <ul className="scrolleable">
-            { tiles.map((tile, index) =>
-                <TileItem key={ index } tile={ tile } checked={ this.isSelected(tile) } onChange={ this.onChange.bind(this) } />
-              ).toArray() }
-          </ul>
-
-          <AddressInput address={ address } onChange={ this.updateAddress.bind(this) }/>
-          <input type="submit" className="input input-send" value="SEND" />
-        </form>
-      </div>
     </Modal>
   }
+}
+
+
+function TilesModal({ title, tiles, address, onSubmit, isSelected, onTileChange, onAddressChange }) {
+  return <div className="TilesModal">
+    <h2>{ title }</h2>
+
+    <form method="POST" action="/transfertiles" onSubmit={ onSubmit }>
+      <ul className="scrolleable">
+        { tiles.map((tile, index) =>
+            <TileItem key={ index } tile={ tile } checked={ isSelected(tile) } onChange={ onTileChange } />
+          ).toArray() }
+      </ul>
+
+      <AddressInput address={ address } onChange={ onAddressChange }/>
+      <input type="submit" className="input input-send" value="SEND" />
+    </form>
+  </div>
+}
+
+TilesModal.propTypes = {
+  title          : PropTypes.string.isRequired,
+  tiles          : PropTypes.instanceOf(im.List).isRequired,
+  address        : PropTypes.string.isRequired,
+  onSubmit       : PropTypes.func.isRequired,
+  isSelected     : PropTypes.func.isRequired,
+  onTileChange   : PropTypes.func.isRequired,
+  onAddressChange: PropTypes.func.isRequired
 }
 
 
@@ -150,4 +181,4 @@ AddressInput.propTypes = {
 }
 
 
-export default connect(TilesModal)
+export default connect(TilesModalContainer)

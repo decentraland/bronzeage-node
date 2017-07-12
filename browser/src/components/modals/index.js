@@ -1,1 +1,1 @@
-export { default as TilesModal } from './TilesModal'
+export { default as TilesModalContainer } from './TilesModalContainer'
