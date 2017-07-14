@@ -1,3 +1,31 @@
 #!/bin/bash
 
-./bin/decentraland-node --fast --port=2301 --prefix="data" --httpport=8301 --n=testnet --apikey=$RPC_API_KEY --contentport=9301 --startminer
+if [[ ! $RPC_API_KEY ]]; then
+  echo "[WARN] RPC_API_KEY not defined. Overwrite it with your custom key to keep track of your tiles"
+  echo ""
+fi
+
+if [[ ! $START_MINER ]]; then
+  export START_MINER='yes'
+fi
+
+if [[ ! $SERVER_PORT ]]; then
+  export SERVER_PORT=5000
+fi
+
+echo "Starting Decentraland web dashboard!. The node will start shortly"
+node ./browser/server.js --apikey $RPC_API_KEY --serverport $SERVER_PORT --daemon &
+
+sleep 2 # Give the user 2 seconds to read
+
+echo "Starting node"
+./bin/decentraland-node \
+  --fast \
+  --loglevel=info \
+  --port=2301 \
+  --httpport=8301 \
+  --contentport=9301 \
+  --prefix="data" \
+  --n=testnet \
+  --apikey=$RPC_API_KEY \
+  --startminer=$START_MINER
