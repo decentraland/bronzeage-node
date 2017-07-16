@@ -12,7 +12,7 @@ RUN npm install
 
 COPY . /decentraland
 
-EXPOSE 2301 8301 9301
+EXPOSE 5000 2301 8301 9301
 
 VOLUME "/data"
 
