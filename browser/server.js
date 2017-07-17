@@ -23,25 +23,24 @@ var client = new Client({
 // Resources
 
 if (! CONFIG.api) {
-  var serveStatic = function(fullPath) {
+  var serveStatic = function(fullPath, requestPath) {
     var extension = fullPath.split('.').pop()
-    var requestPath = fullPath.replace(__dirname + '/build', '')
+
+    requestPath = requestPath || fullPath.replace(__dirname + '/build', '')
 
     server.get(requestPath, function(req, res, send) {
       send(200, fs.readFileSync(fullPath), extension)
     })
   }
 
-  var index = fs.readFileSync(__dirname + '/build/index.html')
+  serveStatic(__dirname + '/build/index.html', '/')
+  serveStatic(__dirname + '/build/favicon.ico')
+  serveStatic(__dirname + '/build/service-worker.js')
 
   var mainJsPath  = glob.sync(__dirname + '/build/static/js/main.*.js')[0]
-  var mainCssPath = glob.sync(__dirname + '/build/static/css/main.*.css')[0]
-
-  server.get('/', function(req, res, send) {
-    send(200, index, 'html')
-  })
-
   serveStatic(mainJsPath)
+
+  var mainCssPath = glob.sync(__dirname + '/build/static/css/main.*.css')[0]
   serveStatic(mainCssPath)
 }
 

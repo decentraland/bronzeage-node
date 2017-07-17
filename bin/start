@@ -2,7 +2,7 @@
 
 if [[ ! $RPC_API_KEY ]]; then
   echo "[WARN] RPC_API_KEY not defined. Overwrite it with your custom key to keep track of your tiles"
-  echo ""
+  exit
 fi
 
 if [[ ! $START_MINER ]]; then
@@ -13,8 +13,20 @@ if [[ ! $SERVER_PORT ]]; then
   export SERVER_PORT=5000
 fi
 
-echo "Starting Decentraland web dashboard!. The node will start shortly"
-node ./browser/server.js --apikey $RPC_API_KEY --serverport $SERVER_PORT --daemon &
+
+if [ "$(ls -A "./browser/node_modules" 2>/dev/null)" ]; then
+  echo "Starting Decentraland web dashboard! The node will start shortly after"
+
+  if [ ! "$(ls -A "./browser/build" 2>/dev/null)" ]; then
+    echo "Building dashboard, this may take a moment"
+    ( cd browser && npm run build > /dev/null )
+    echo "Done!"
+  fi
+
+  node ./browser/server.js --apikey $RPC_API_KEY --serverport $SERVER_PORT --daemon &
+else
+  echo "Remember to run \"npm install\" inside the browser folder so you can run the Decentraland web dashboard"
+fi
 
 sleep 2 # Give the user 2 seconds to read
 
