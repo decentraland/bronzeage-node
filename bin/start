@@ -6,7 +6,7 @@ if [[ ! $RPC_API_KEY ]]; then
 fi
 
 if [[ ! $START_MINER ]]; then
-  export START_MINER='yes'
+  export START_MINER='true'
 fi
 
 if [[ ! $SERVER_PORT ]]; then
