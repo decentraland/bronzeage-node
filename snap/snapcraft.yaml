@@ -12,7 +12,7 @@ confinement: strict
 
 apps:
   decentraland:
-    command: sh -c \"cd $SNAP/lib/node_modules/decentraland && ./bin/start\"
+    command: sh -c \"cd $SNAP/lib/node_modules/decentraland && DECENTRALAND_DATA=$SNAP_USER_DATA/data ./bin/start\"
     plugs: [home, network, network-bind]
   cli:
     command: sh -c \"cd $SNAP/lib/node_modules/decentraland && ./bin/cli\"
