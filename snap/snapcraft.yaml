@@ -1,0 +1,35 @@
+name: decentraland
+version: master
+summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+description: |
+  This is my-snap's description. You have a paragraph or two to tell the
+  most important story about your snap. Keep it under 100 words though,
+  we live in tweetspace and your description wants to look good in the snap
+  store.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: strict
+
+apps:
+  decentraland:
+    command: sh -c \"cd $SNAP/lib/node_modules/decentraland && DATA_DIR=$SNAP_USER_DATA/data ./bin/start\"
+    plugs: [home, network, network-bind]
+  cli:
+    command: sh -c \"cd $SNAP/lib/node_modules/decentraland && ./bin/cli\"
+    plugs: [home, network]
+
+parts:
+  bronzeage-node:
+    source: .
+    plugin: nodejs
+    node-engine: 7.4.0
+    build-packages:
+      - build-essential
+      - python
+      - xvfb
+      - libgtk2.0-0
+      - libxtst-dev
+      - libxss-dev
+      - libgconf2-dev
+      - libnss3
+      - libasound2-dev
