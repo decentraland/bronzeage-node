@@ -13,10 +13,10 @@ if [[ ! $SERVER_PORT ]]; then
   export SERVER_PORT=5000
 fi
 
-if [ -z "$DECENTRALAND_DATA" ]; then
+if [ -z "$DATA_DIR" ]; then
     data_prefix='data'
 else
-    data_prefix="$DECENTRALAND_DATA"
+    data_prefix="$DATA_DIR"
 fi
 
 echo "Starting Decentraland web dashboard!. The node will start shortly"
