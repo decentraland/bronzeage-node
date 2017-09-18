@@ -1,3 +1,8 @@
+# DEPRECATED: This code is unmantained and the new version of Decentraland will be built using a different architecture.
+
+
+
+
 ![](https://decentraland.org/favicon.ico)
 
 ## About
